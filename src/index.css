@@ -1,0 +1,56 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap');
+
+@theme {
+  --font-sans: "Lora", serif;
+  --font-serif: "Cinzel", serif;
+  
+  --color-ocean-dark: #0b162c;
+  --color-ocean-mid: #152642;
+  --color-ocean-light: #1f375a;
+  
+  --color-parchment: #e8dcc4;
+  --color-parchment-dark: #d4c3a3;
+  
+  --color-treasure-gold: #c5a059;
+  --color-bronze: #b08d57;
+  
+  --color-island-base: #2a4a31;
+  --color-island-highlight: #3b6143;
+  --color-island-dirt: #4a3320;
+  
+  --color-stone: #4a4e54;
+  --color-stone-dark: #33373d;
+  
+  --color-text-primary: #152642;
+  --color-text-light: #e8dcc4;
+  --color-text-muted: #d4c3a3;
+}
+
+@layer base {
+  html, body {
+    @apply m-0 p-0 overflow-x-hidden bg-ocean-dark text-text-light font-sans antialiased;
+    overscroll-behavior-y: none;
+  }
+  
+  /* Lenis smooth scrolling requirement */
+  html.lenis, html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  .lenis.lenis-scrolling iframe {
+    pointer-events: none;
+  }
+}
