@@ -1,5 +1,10 @@
 import { motion } from 'framer-motion'
-import { SiReact, SiTailwindcss, SiNodedotjs, SiPython, SiFastapi, SiDocker, SiGit, SiMongodb } from 'react-icons/si'
+import {
+  SiReact,
+  SiTailwindcss,
+  SiPython,
+  SiGit,
+} from "react-icons/si";
 import { useState } from 'react'
 
 const SKILLS = [

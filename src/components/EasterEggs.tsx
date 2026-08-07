@@ -96,11 +96,18 @@ export default function EasterEggs() {
       {/* 3. The Golden Crab (Contact Island Beach) */}
       <div className="absolute top-[550px] left-[2150px] z-30 pointer-events-auto">
         <motion.div
-          animate={{ x: [0, 20, 0, -10, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: 'steps(5)' }}
-          className="cursor-pointer group relative"
-          onClick={() => setActiveSecret('crab')}
-        >
+  animate={{
+    x: [0, 20, 20, -10, -10, 0],
+  }}
+  transition={{
+    duration: 6,
+    repeat: Infinity,
+    times: [0, 0.2, 0.4, 0.6, 0.8, 1],
+    ease: "linear",
+  }}
+  className="cursor-pointer group relative"
+  onClick={() => setActiveSecret("crab")}
+>
           {/* Tiny Golden Crab SVG */}
           <svg width="24" height="24" viewBox="0 0 20 20" className="drop-shadow-[0_0_5px_rgba(255,215,0,0.8)]">
             <ellipse cx="10" cy="10" rx="6" ry="4" fill="var(--color-treasure-gold)" />

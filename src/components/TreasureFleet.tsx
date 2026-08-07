@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ISLAND_COORDINATES, getDockPos } from '../constants/islands'
 import { motion } from 'framer-motion'
+import { MotionPathPlugin } from "gsap/MotionPathPlugin";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function TreasureFleet() {
   const fleetCursorRef = useRef<HTMLDivElement>(null)
@@ -18,8 +20,8 @@ export default function TreasureFleet() {
   useEffect(() => {
     if (!isReady || !fleetCursorRef.current) return
 
-    let prevX = getDockPos(0).x
-    let prevY = getDockPos(0).y
+    // let prevX = getDockPos(0).x
+    // let prevY = getDockPos(0).y
 
     // Dock a specific ship
     const dockShip = (index: number, currentRotation: number) => {
@@ -37,6 +39,8 @@ export default function TreasureFleet() {
         duration: 1.5,
         ease: "power2.out"
       })
+
+      gsap.registerPlugin(MotionPathPlugin, ScrollTrigger);
       
       // Bounce and settle
       gsap.to(ship.querySelector('.ship-hull'), {
@@ -133,7 +137,9 @@ export default function TreasureFleet() {
       {[0, 1, 2, 3, 4, 5].map(index => (
         <div 
           key={index}
-          ref={el => shipRefs.current[index] = el}
+          ref={(el) => {
+  shipRefs.current[index] = el;
+}}
           className="absolute top-0 left-0 origin-center pointer-events-none z-[40]"
           style={{ transform: `translate(${getDockPos(0).x}px, ${getDockPos(0).y}px)` }}
         >
