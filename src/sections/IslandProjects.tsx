@@ -11,7 +11,7 @@ const PROJECTS = [
     type: 'Web App',
     tech: 'React.js, HTML, CSS',
     desc: '• Developed a responsive movie discovery web application using React.js with real-time movie data fetched from the TMDB API.\n• Implemented movie search, favorites management, and dynamic content rendering to enhance user experience.\n• Utilized React Hooks, Context API, Fetch API, and Local Storage for efficient state management and persistent user preferences.\n• Designed a mobile- friendly and responsive UI, ensuring seamless performance across desktop and mobile devices.',
-    liveDemo: 'https://movie-app-7.vercel.app/',
+    liveDemo: 'https://movie-app-topaz-two.vercel.app/',
     sourceCode: 'https://github.com/YamanChahar/Movie-App.git',
   },
 // {
