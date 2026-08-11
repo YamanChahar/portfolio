@@ -19,6 +19,7 @@ export default function CameraController({ mapRef }: CameraControllerProps) {
       }
 
       const updateCamera = () => {
+        if (!mapRef.current) return
         gsap.set(mapRef.current, {
           x: window.innerWidth / 2 - (camera.x * camera.zoom),
           y: window.innerHeight / 2 - (camera.y * camera.zoom),

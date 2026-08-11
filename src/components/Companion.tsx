@@ -116,18 +116,20 @@ export default function Companion() {
               {/* Idle floating shadow */}
               <motion.ellipse 
                 cx="50" cy="95" rx="20" ry="5" fill="rgba(0,0,0,0.2)"
-                animate={{ rx: [20, 15, 20], opacity: [0.2, 0.1, 0.2] }}
+                style={{ transformOrigin: "50px 95px" }}
+                animate={{ scaleX: [1, 0.75, 1], opacity: [0.2, 0.1, 0.2] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               />
 
               {/* Character Body (Cloak) */}
               <motion.path 
-                d="M 20 90 C 20 40, 80 40, 80 90 C 80 95, 20 95, 20 90 Z" 
+                initial={{ d: "M 20 90 C 20 40 80 40 80 90 C 80 95 20 95 20 90 Z" }}
+                d="M 20 90 C 20 40 80 40 80 90 C 80 95 20 95 20 90 Z" 
                 fill="var(--color-ocean-dark)"
                 animate={{ d: [
-                  "M 20 90 C 20 40, 80 40, 80 90 C 80 95, 20 95, 20 90 Z",
-                  "M 22 90 C 20 42, 80 42, 78 90 C 80 95, 20 95, 22 90 Z",
-                  "M 20 90 C 20 40, 80 40, 80 90 C 80 95, 20 95, 20 90 Z"
+                  "M 20 90 C 20 40 80 40 80 90 C 80 95 20 95 20 90 Z",
+                  "M 22 90 C 20 42 80 42 78 90 C 80 95 20 95 22 90 Z",
+                  "M 20 90 C 20 40 80 40 80 90 C 80 95 20 95 20 90 Z"
                 ] }}
                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
               />

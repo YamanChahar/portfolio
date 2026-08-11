@@ -156,12 +156,14 @@ export default function TreasureFleet() {
               <path d="M 40 10 L 40 80" stroke="var(--color-island-dirt)" strokeWidth="4" />
               <path d="M 20 20 Q 40 40 60 20 L 50 10 L 30 10 Z" fill="var(--color-stone-dark)" />
               <motion.path 
+                initial={{ d: "M 20 20 Q 40 50 60 20 Q 40 10 20 20 Z" }}
                 d="M 20 20 Q 40 50 60 20 Q 40 10 20 20 Z" 
                 fill="var(--color-parchment)" opacity="0.9" 
                 animate={{ d: ["M 20 20 Q 40 50 60 20 Q 40 10 20 20 Z", "M 15 20 Q 40 55 65 20 Q 40 5 15 20 Z", "M 20 20 Q 40 50 60 20 Q 40 10 20 20 Z"] }}
                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
               />
               <motion.path 
+                initial={{ d: "M 20 40 Q 40 70 60 40 Q 40 30 20 40 Z" }}
                 d="M 20 40 Q 40 70 60 40 Q 40 30 20 40 Z" 
                 fill="var(--color-parchment-dark)" opacity="0.9" 
                 animate={{ d: ["M 20 40 Q 40 70 60 40 Q 40 30 20 40 Z", "M 15 40 Q 40 75 65 40 Q 40 25 15 40 Z", "M 20 40 Q 40 70 60 40 Q 40 30 20 40 Z"] }}

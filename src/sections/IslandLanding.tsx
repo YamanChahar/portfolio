@@ -79,6 +79,7 @@ export default function IslandLanding({ x, y }: { x: number, y: number }) {
         <svg width="80" height="150" viewBox="0 0 80 150" className="drop-shadow-xl opacity-90">
           <line x1="10" y1="150" x2="10" y2="10" stroke="var(--color-island-dirt)" strokeWidth="4" strokeLinecap="round" />
           <motion.path 
+            initial={{ d: "M 12 10 Q 40 0 70 20 Q 40 30 12 40 Z" }}
             d="M 12 10 Q 40 0 70 20 Q 40 30 12 40 Z" 
             fill="var(--color-ocean-dark)"
             animate={{ 

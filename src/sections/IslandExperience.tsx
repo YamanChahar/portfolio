@@ -86,6 +86,7 @@ export default function IslandExperience({ x, y }: { x: number, y: number }) {
           
           {/* Outer Flames */}
           <motion.path 
+            initial={{ d: "M 75 40 Q 95 80 90 105 Q 75 115 60 105 Q 55 80 75 40 Z" }}
             d="M 75 40 Q 95 80 90 105 Q 75 115 60 105 Q 55 80 75 40 Z" 
             fill="#ff5500"
             animate={{ 
@@ -99,6 +100,7 @@ export default function IslandExperience({ x, y }: { x: number, y: number }) {
           />
           {/* Mid Flames */}
           <motion.path 
+            initial={{ d: "M 75 60 Q 90 90 85 110 Q 75 115 65 110 Q 60 90 75 60 Z" }}
             d="M 75 60 Q 90 90 85 110 Q 75 115 65 110 Q 60 90 75 60 Z" 
             fill="#ffaa00"
             animate={{ 
@@ -112,6 +114,7 @@ export default function IslandExperience({ x, y }: { x: number, y: number }) {
           />
           {/* Inner Flames */}
           <motion.path 
+            initial={{ d: "M 75 80 Q 82 100 80 110 Q 75 112 70 110 Q 68 100 75 80 Z" }}
             d="M 75 80 Q 82 100 80 110 Q 75 112 70 110 Q 68 100 75 80 Z" 
             fill="#ffeeaa"
             animate={{ 
@@ -121,7 +124,7 @@ export default function IslandExperience({ x, y }: { x: number, y: number }) {
                 "M 75 80 Q 82 100 80 110 Q 75 112 70 110 Q 68 100 75 80 Z"
               ] 
             }}
-            transition={{ duration: 0.7, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
+            transition={{ duration: 0.6, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
           />
           
           {/* Sparks */}
