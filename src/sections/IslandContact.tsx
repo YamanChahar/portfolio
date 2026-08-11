@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { SiGithub } from 'react-icons/si'
 import { FaFilePdf, FaLinkedin } from 'react-icons/fa'
 import { createPortal } from 'react-dom'
-
 export default function IslandContact({ x, y }: { x: number, y: number }) {
   
 
@@ -152,7 +151,7 @@ export default function IslandContact({ x, y }: { x: number, y: number }) {
                 {[
                   { icon: SiGithub, link: 'https://github.com/YamanChahar', name: 'GitHub' },
                   { icon: FaLinkedin, link: 'https://www.linkedin.com/in/yaman-chahar-ab4514320/', name: 'LinkedIn' },
-                  { icon: FaFilePdf, link: '/resume.pdf', name: 'Resume' },
+                 { icon: FaFilePdf, link: '/resume.pdf', name: 'Resume' },
                 ].map((social, i, arr) => {
                   const angle = (i / arr.length) * Math.PI * 2 - Math.PI / 2 // Start at top
                   const radius = 110 // Distance from center
@@ -163,6 +162,8 @@ export default function IslandContact({ x, y }: { x: number, y: number }) {
                     <motion.a
                       key={i}
                       href={social.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       initial={{ scale: 0, opacity: 0, x: 0, y: 0 }}
                       animate={{ scale: 1, opacity: 1, x: destX, y: destY }}
                       transition={{ type: 'spring', delay: 1.5 + i * 0.15, bounce: 0.3 }}
