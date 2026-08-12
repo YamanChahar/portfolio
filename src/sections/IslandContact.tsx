@@ -151,7 +151,7 @@ export default function IslandContact({ x, y }: { x: number, y: number }) {
                 {[
                   { icon: SiGithub, link: 'https://github.com/YamanChahar', name: 'GitHub' },
                   { icon: FaLinkedin, link: 'https://www.linkedin.com/in/yaman-chahar-ab4514320/', name: 'LinkedIn' },
-                 { icon: FaFilePdf, link: '/resume.pdf', name: 'Resume' },
+                 { icon: FaFilePdf, link: '/Resume.pdf', name: 'Resume' }
                 ].map((social, i, arr) => {
                   const angle = (i / arr.length) * Math.PI * 2 - Math.PI / 2 // Start at top
                   const radius = 110 // Distance from center
