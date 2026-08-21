@@ -172,65 +172,71 @@ export default function IslandProjects({ x, y }: { x: number, y: number }) {
                 animate={{ scale: 1, y: 0, opacity: 1 }}
                 exit={{ scale: 0.95, y: 20, opacity: 0 }}
                 transition={{ type: "spring", bounce: 0.2, duration: 0.8 }}
-                className="relative w-full max-w-5xl bg-parchment rounded-sm shadow-2xl border border-bronze overflow-hidden flex flex-col md:flex-row z-10"
+                className="relative w-full max-w-5xl bg-parchment rounded-sm shadow-2xl border border-bronze overflow-hidden z-10"
                 style={{
                   backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.05' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E")`
                 }}
               >
-                <div className="w-full md:w-1/3 p-10 flex flex-col justify-center relative overflow-hidden bg-parchment-dark/30 border-r border-bronze/30">
-                  {/* Decorative compass rose bg */}
-                  <svg className="absolute -right-20 -top-20 w-80 h-80 opacity-10 mix-blend-multiply" viewBox="0 0 100 100">
-                    <polygon points="50,10 60,40 90,50 60,60 50,90 40,60 10,50 40,40" fill="var(--color-ocean-dark)" />
-                    <circle cx="50" cy="50" r="30" fill="none" stroke="var(--color-ocean-dark)" strokeWidth="1" />
-                  </svg>
+                <button
+                  className="absolute top-4 right-4 md:top-6 md:right-8 text-3xl font-serif text-ocean-mid hover:text-ocean-dark transition-colors z-50 w-10 h-10 flex items-center justify-center bg-parchment/80 md:bg-transparent rounded-full backdrop-blur-sm md:backdrop-blur-none"
+                  onClick={() => setActiveProject(null)}
+                >
+                  &times;
+                </button>
 
-                  <h3 className="text-xs font-sans tracking-[0.3em] uppercase mb-2 text-ocean-light">
-                    {PROJECTS.find(p => p.id === activeProject)?.type}
-                  </h3>
-                  <h2 className="text-4xl font-serif text-ocean-dark mb-6 leading-tight">
-                    {PROJECTS.find(p => p.id === activeProject)?.name}
-                  </h2>
+                <div 
+                  className="w-full h-full max-h-[90vh] overflow-y-auto flex flex-col md:flex-row [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-bronze/30 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-bronze/60"
+                  data-lenis-prevent="true"
+                  style={{ WebkitOverflowScrolling: "touch" }}
+                >
+                  <div className="w-full md:w-1/3 p-10 flex flex-col justify-center relative overflow-hidden bg-parchment-dark/30 border-r border-bronze/30 shrink-0">
+                    {/* Decorative compass rose bg */}
+                    <svg className="absolute -right-20 -top-20 w-80 h-80 opacity-10 mix-blend-multiply" viewBox="0 0 100 100">
+                      <polygon points="50,10 60,40 90,50 60,60 50,90 40,60 10,50 40,40" fill="var(--color-ocean-dark)" />
+                      <circle cx="50" cy="50" r="30" fill="none" stroke="var(--color-ocean-dark)" strokeWidth="1" />
+                    </svg>
 
-                  <div className="space-y-4">
-                    <div>
-                      <h4 className="text-[10px] font-sans tracking-widest text-ocean-mid uppercase mb-1">Tech Stack</h4>
-                      <p className="text-ocean-dark font-serif text-lg">{PROJECTS.find(p => p.id === activeProject)?.tech}</p>
+                    <h3 className="text-xs font-sans tracking-[0.3em] uppercase mb-2 text-ocean-light">
+                      {PROJECTS.find(p => p.id === activeProject)?.type}
+                    </h3>
+                    <h2 className="text-4xl font-serif text-ocean-dark mb-6 leading-tight">
+                      {PROJECTS.find(p => p.id === activeProject)?.name}
+                    </h2>
+
+                    <div className="space-y-4">
+                      <div>
+                        <h4 className="text-[10px] font-sans tracking-widest text-ocean-mid uppercase mb-1">Tech Stack</h4>
+                        <p className="text-ocean-dark font-serif text-lg">{PROJECTS.find(p => p.id === activeProject)?.tech}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div className="w-full md:w-2/3 p-10 md:p-14 bg-parchment">
-                  <button
-                    className="absolute top-6 right-8 text-3xl font-serif text-ocean-mid hover:text-ocean-dark transition-colors"
-                    onClick={() => setActiveProject(null)}
-                  >
-                    &times;
-                  </button>
+                  <div className="w-full md:w-2/3 p-10 md:p-14 bg-parchment">
+                    <h3 className="text-xl font-serif text-ocean-dark mb-4 border-b border-bronze/30 pb-2">About The Artifact</h3>
+                    <p className="text-lg font-sans text-ocean-mid leading-relaxed mb-10 opacity-90 whitespace-pre-line">
+                      {PROJECTS.find(p => p.id === activeProject)?.desc}
+                    </p>
 
-                  <h3 className="text-xl font-serif text-ocean-dark mb-4 border-b border-bronze/30 pb-2">About The Artifact</h3>
-                  <p className="text-lg font-sans text-ocean-mid leading-relaxed mb-10 opacity-90 whitespace-pre-line">
-                    {PROJECTS.find(p => p.id === activeProject)?.desc}
-                  </p>
-
-                  <div className="flex flex-col sm:flex-row gap-4 mt-auto">
-                    <a
-                      href={PROJECTS.find(p => p.id === activeProject)?.sourceCode || "#"}
-                      target={PROJECTS.find(p => p.id === activeProject)?.sourceCode ? "_blank" : undefined}
-                      rel={PROJECTS.find(p => p.id === activeProject)?.sourceCode ? "noopener noreferrer" : undefined}
-                      className="flex-1 py-4 bg-ocean-dark hover:bg-ocean-mid text-parchment rounded-sm flex items-center justify-center gap-3 transition-colors border border-ocean-dark font-sans tracking-widest uppercase text-sm"
-                    >
-                      <SiGithub className="text-xl" />
-                      View Source
-                    </a>
-                    <a
-                      href={PROJECTS.find(p => p.id === activeProject)?.liveDemo || "#"}
-                      target={PROJECTS.find(p => p.id === activeProject)?.liveDemo ? "_blank" : undefined}
-                      rel={PROJECTS.find(p => p.id === activeProject)?.liveDemo ? "noopener noreferrer" : undefined}
-                      className="flex-1 py-4 bg-transparent hover:bg-bronze/10 text-ocean-dark rounded-sm flex items-center justify-center gap-3 transition-colors border border-bronze font-sans tracking-widest uppercase text-sm"
-                    >
-                      <FaExternalLinkAlt />
-                      Live Demo
-                    </a>
+                    <div className="flex flex-col sm:flex-row gap-4 mt-auto">
+                      <a
+                        href={PROJECTS.find(p => p.id === activeProject)?.sourceCode || "#"}
+                        target={PROJECTS.find(p => p.id === activeProject)?.sourceCode ? "_blank" : undefined}
+                        rel={PROJECTS.find(p => p.id === activeProject)?.sourceCode ? "noopener noreferrer" : undefined}
+                        className="flex-1 py-4 bg-ocean-dark hover:bg-ocean-mid text-parchment rounded-sm flex items-center justify-center gap-3 transition-colors border border-ocean-dark font-sans tracking-widest uppercase text-sm"
+                      >
+                        <SiGithub className="text-xl" />
+                        View Source
+                      </a>
+                      <a
+                        href={PROJECTS.find(p => p.id === activeProject)?.liveDemo || "#"}
+                        target={PROJECTS.find(p => p.id === activeProject)?.liveDemo ? "_blank" : undefined}
+                        rel={PROJECTS.find(p => p.id === activeProject)?.liveDemo ? "noopener noreferrer" : undefined}
+                        className="flex-1 py-4 bg-transparent hover:bg-bronze/10 text-ocean-dark rounded-sm flex items-center justify-center gap-3 transition-colors border border-bronze font-sans tracking-widest uppercase text-sm"
+                      >
+                        <FaExternalLinkAlt />
+                        Live Demo
+                      </a>
+                    </div>
                   </div>
                 </div>
               </motion.div>
