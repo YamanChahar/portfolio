@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { createPortal } from 'react-dom'
+import { motion } from 'framer-motion'
+import ScrollModal from '../components/ScrollModal'
 
 const EXPERIENCE = [
   {
@@ -175,95 +175,48 @@ export default function IslandExperience({ x, y }: { x: number, y: number }) {
         </svg>
       </motion.div>
 
-      {createPortal(
-        <AnimatePresence>
-          {isOpen && (
+      <ScrollModal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        mapLabel="Captain's Logbook"
+        title="Expedition Timeline"
+        subtitle="A Record of Conquered Seas"
+      >
+        <div className="relative border-l-2 border-bronze/40 ml-4 md:ml-8 mt-8 space-y-16 max-w-3xl mx-auto">
+          {EXPERIENCE.map((exp, i) => (
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-8"
-              style={{ perspective: 2000 }}
+              key={i}
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1, duration: 0.8 }}
+              className="relative pl-10 group"
             >
-              <div
-                className="absolute inset-0 bg-ocean-dark/90 backdrop-blur-md"
-                onClick={() => setIsOpen(false)}
-              />
+              {/* Timeline node - Compass Point */}
+              <div className="absolute -left-[11px] top-4 w-5 h-5 bg-parchment border-2 border-ocean-dark rounded-full shadow-sm flex items-center justify-center group-hover:border-bronze transition-colors">
+                 <div className="w-1.5 h-1.5 bg-ocean-dark rounded-full group-hover:bg-bronze transition-colors" />
+              </div>
+              <div className="absolute -left-[20px] top-[24px] w-[20px] h-[2px] bg-bronze/40 pointer-events-none" />
 
-              {/* Journal Book (Weathered Leather Cover styling outside, Parchment inside) */}
-              <motion.div
-                initial={{ rotateY: -10, y: 50, opacity: 0 }}
-                animate={{ rotateY: 0, y: 0, opacity: 1 }}
-                exit={{ rotateY: 10, y: 50, opacity: 0 }}
-                transition={{ type: "spring", bounce: 0.2, duration: 1 }}
-                className="relative w-full max-w-4xl h-[80vh] flex shadow-[0_40px_80px_rgba(0,0,0,0.8)] border border-bronze/30"
-              >
-                <button
-                  className="absolute -top-12 right-0 text-3xl font-serif text-ocean-light hover:text-parchment z-20 transition-colors"
-                  onClick={() => setIsOpen(false)}
-                >
-                  &times;
-                </button>
-
-                {/* Left Page (Decoration/Summary) */}
-                <div className="w-1/2 bg-parchment h-full rounded-l-sm border-r border-ocean-dark/10 shadow-[inset_-20px_0_30px_rgba(0,0,0,0.05)] p-10 flex flex-col items-center justify-center relative overflow-hidden"
-                  style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100\' height=\'100\' filter=\'url(%23noise)\' opacity=\'0.04\'/%3E%3C/svg%3E")' }}>
-
-                  {/* Compass Rose Decoration */}
-                  <svg className="w-64 h-64 opacity-10 absolute mix-blend-multiply" viewBox="0 0 100 100">
-                    <polygon points="50,10 60,40 90,50 60,60 50,90 40,60 10,50 40,40" fill="var(--color-ocean-dark)" />
-                    <circle cx="50" cy="50" r="30" fill="none" stroke="var(--color-ocean-dark)" strokeWidth="1" />
-                  </svg>
-
-                  <h1 className="text-5xl font-serif text-ocean-dark mb-4 z-10 text-center leading-tight">Ship's<br />Manifest</h1>
-                  <p className="text-ocean-mid font-sans text-sm tracking-widest text-center z-10 uppercase opacity-80">A record of conquered seas.</p>
-
-                  <div className="mt-12 w-24 h-[1px] bg-bronze/50 z-10" />
-                </div>
-
-                {/* Book Spine Overlay */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-8 h-full bg-gradient-to-r from-[rgba(0,0,0,0.2)] via-[rgba(0,0,0,0.05)] to-[rgba(0,0,0,0.2)] z-10 pointer-events-none" />
-
-                {/* Right Page (Timeline) */}
-                <div className="w-1/2 bg-parchment h-full rounded-r-sm border-l border-ocean-dark/10 shadow-[inset_20px_0_30px_rgba(0,0,0,0.05)] p-10 overflow-y-auto" data-lenis-prevent="true"
-                  style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100\' height=\'100\' filter=\'url(%23noise)\' opacity=\'0.04\'/%3E%3C/svg%3E")' }}>
-
-                  <div className="relative border-l border-bronze/40 ml-4 mt-4 space-y-12">
-                    {EXPERIENCE.map((exp, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ opacity: 0, x: 10 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: i * 0.2, duration: 0.8 }}
-                        className="relative pl-8"
-                      >
-                        {/* Timeline node */}
-                        <div className="absolute -left-[5px] top-1 w-2 h-2 bg-ocean-dark rounded-full shadow-sm" />
-
-                        <span className="text-bronze font-sans tracking-widest text-xs mb-1 block uppercase">
-                          {exp.year}
-                        </span>
-                        <h3 className="text-xl font-serif text-ocean-dark mb-1">{exp.role}</h3>
-                        <h4 className="text-sm font-sans text-ocean-light mb-4 italic font-semibold">{exp.company}</h4>
-                        <ul className="list-disc pl-4 space-y-2">
-                          {exp.bullets.map((bullet, idx) => (
-                            <li key={idx} className="text-ocean-mid font-sans text-sm leading-relaxed opacity-90">
-                              {bullet}
-                            </li>
-                          ))}
-                        </ul>
-                      </motion.div>
-                    ))}
-                  </div>
-
-                </div>
-              </motion.div>
+              <div className="bg-parchment-dark/10 border border-bronze/20 p-8 shadow-inner relative overflow-hidden transition-all duration-300 group-hover:bg-parchment-dark/20 group-hover:shadow-[inset_0_0_20px_rgba(139,115,85,0.1)]">
+                <span className="text-bronze font-sans tracking-[0.2em] text-xs mb-2 block uppercase font-bold">
+                  {exp.year}
+                </span>
+                <h3 className="text-2xl font-serif text-ocean-dark mb-1">{exp.role}</h3>
+                <h4 className="text-sm font-sans text-ocean-mid mb-6 italic opacity-90 border-b border-bronze/20 pb-3 inline-block">{exp.company}</h4>
+                <ul className="list-none space-y-4">
+                  {exp.bullets.map((bullet, idx) => (
+                    <li key={idx} className="relative pl-6 text-ocean-dark font-sans text-[15px] leading-relaxed opacity-90">
+                      <span className="absolute left-0 top-2 w-1.5 h-1.5 bg-bronze/60 rotate-45" />
+                      {bullet}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </motion.div>
-          )}
-        </AnimatePresence>,
-        document.body
-      )}
+          ))}
+        </div>
+      </ScrollModal>
     </div>
   )
 }

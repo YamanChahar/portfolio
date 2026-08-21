@@ -1,7 +1,6 @@
 import { useState } from 'react'
-import { createPortal } from 'react-dom'
-import { motion, AnimatePresence } from 'framer-motion'
-
+import { motion } from 'framer-motion'
+import ScrollModal from '../components/ScrollModal'
 export default function IslandAbout({ x, y }: { x: number, y: number }) {
   const [isOpen, setIsOpen] = useState(false)
 
@@ -46,100 +45,69 @@ export default function IslandAbout({ x, y }: { x: number, y: number }) {
         About
       </h2>
 
-      {createPortal(
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-8"
-              style={{ perspective: 1500 }}
-            >
-              <div 
-                className="absolute inset-0 bg-ocean-dark/90 backdrop-blur-sm" 
-                onClick={() => setIsOpen(false)}
-              />
-              
-              <motion.div
-                initial={{ rotateX: 20, y: 50, opacity: 0 }}
-                animate={{ rotateX: 0, y: 0, opacity: 1 }}
-                exit={{ rotateX: -20, y: -50, opacity: 0 }}
-                transition={{ type: "spring", bounce: 0.2, duration: 1 }}
-                className="relative w-full max-w-5xl h-[85vh] bg-parchment rounded-sm shadow-2xl border border-bronze overflow-hidden flex flex-col md:flex-row text-ocean-dark"
-                style={{ 
-                  backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.05' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E")`
-                }}
-              >
-                <button 
-                  className="absolute top-6 right-8 text-3xl font-serif text-ocean-mid hover:text-ocean-dark z-20 opacity-60 hover:opacity-100 transition-opacity"
-                  onClick={() => setIsOpen(false)}
-                >
-                  &times;
-                </button>
-                
-                {/* Character Illustration Panel */}
-                <div className="w-full md:w-1/3 bg-parchment-dark/30 border-r border-bronze/30 flex flex-col items-center justify-center p-8 relative overflow-hidden">
-                  
-                  {/* Avatar SVG (Vintage Sketch Style) */}
-                  <div className="relative w-48 h-48 rounded-full border border-ocean-dark/40 shadow-inner flex items-center justify-center overflow-hidden z-10 mb-8 bg-parchment mix-blend-multiply">
-                    <svg viewBox="0 0 100 100" className="w-40 h-40 mt-10 opacity-80">
-                      {/* Body */}
-                      <path d="M 20 100 C 20 60, 80 60, 80 100 Z" fill="var(--color-ocean-dark)" />
-                      {/* Head */}
-                      <circle cx="50" cy="45" r="25" fill="var(--color-stone)" />
-                      {/* Hood/Cloak */}
-                      <path d="M 15 50 Q 50 0 85 50 Q 50 10 15 50 Z" fill="var(--color-ocean-dark)" />
-                      {/* Eyes (Hidden/Mysterious) */}
-                      <path d="M 25 45 Q 50 55 75 45" fill="none" stroke="var(--color-ocean-dark)" strokeWidth="2" />
-                    </svg>
-                  </div>
-                  
-                  <h3 className="text-2xl font-serif text-center mb-1 text-ocean-dark">Yaman Chahar</h3>
-                  <p className="text-xs font-sans tracking-[0.3em] text-ocean-light uppercase text-center opacity-80">Master Navigator</p>
-                </div>
+      <ScrollModal 
+        isOpen={isOpen} 
+        onClose={() => setIsOpen(false)}
+        mapLabel="Captain's Log"
+        title="Yaman Chahar"
+        subtitle="Computer Science Engineer"
+      >
+        <div className="flex flex-col md:flex-row gap-12">
+          {/* Left Column: Log Details */}
+          <div className="w-full md:w-1/3 flex flex-col gap-8">
+            <div className="relative w-40 h-40 mx-auto rounded-full border border-ocean-dark/20 flex items-center justify-center overflow-hidden z-10 bg-parchment-dark/10 mix-blend-multiply shadow-[inset_0_0_20px_rgba(0,0,0,0.05)]">
+               <svg viewBox="0 0 100 100" className="w-28 h-28 opacity-60">
+                 <circle cx="50" cy="50" r="40" fill="none" stroke="var(--color-ocean-dark)" strokeWidth="1.5" strokeDasharray="4 4" />
+                 <circle cx="50" cy="50" r="32" fill="none" stroke="var(--color-ocean-dark)" strokeWidth="0.5" />
+                 <polygon points="50,10 55,45 90,50 55,55 50,90 45,55 10,50 45,45" fill="none" stroke="var(--color-ocean-dark)" strokeWidth="1.5" />
+                 <circle cx="50" cy="50" r="4" fill="var(--color-ocean-dark)" />
+               </svg>
+            </div>
+            <div className="text-center mt-4">
+              <p className="text-xs font-sans tracking-[0.3em] text-ocean-light uppercase opacity-80 mb-3 border-b border-bronze/30 pb-2 inline-block">Expedition Status</p>
+              <p className="font-serif text-ocean-dark text-lg italic">Learning • Building • Exploring</p>
+            </div>
+            <div className="text-center mt-auto pt-8">
+              <p className="text-[10px] font-sans tracking-[0.3em] text-ocean-mid uppercase opacity-50 mb-1">Entry: Day 742</p>
+              <p className="text-[10px] font-sans tracking-[0.3em] text-ocean-mid uppercase opacity-50">Coord: 28°36'N 77°13'E</p>
+            </div>
+          </div>
 
-                {/* Log Content Panel */}
-                <div className="w-full md:w-2/3 p-10 md:p-16 overflow-y-auto" data-lenis-prevent="true">
-                  <h1 className="text-4xl font-serif border-b border-ocean-dark/20 pb-6 mb-8 text-ocean-dark">Captain's Log</h1>
-                  
-                  <div className="space-y-8 font-sans text-lg leading-relaxed text-ocean-mid/90">
-                    <p className="first-letter:text-6xl first-letter:font-serif first-letter:text-ocean-dark first-letter:mr-3 first-letter:float-left">
-                      Second-year CSE student at USICT, GGSIPU. Professional Googler, part-time debugger, and full-time builder of web applications that aim to be faster, cleaner, and more enjoyable than the last one.
-                    </p>
-                    <h3 className="text-2xl font-serif mt-12 border-b border-bronze/30 inline-block pb-2 text-ocean-dark">Education</h3>
-                    <div className="bg-parchment-dark/20 p-6 border border-bronze/20 mt-6 shadow-inner relative overflow-hidden">
-                      <div className="absolute top-0 left-0 w-1 h-full bg-bronze/50" />
-                      <p className="text-xl font-serif mb-2 text-ocean-dark">Bachelor of Technology in Computer Science</p>
-                      <p className="text-ocean-mid font-sans text-sm italic">University School of Information, Communication and Technology (USICT), Class of 2024-2028</p>
-                      <p className="text-ocean-dark font-sans text-sm font-bold tracking-widest mt-2 uppercase">CGPA: 8.0</p>
-                    </div>
-                    
-                    <h3 className="text-2xl font-serif mt-12 border-b border-bronze/30 inline-block pb-2 text-ocean-dark">The Journey</h3>
-                    <ul className="list-none space-y-8 mt-6">
-                      <li className="relative pl-8 before:content-[''] before:absolute before:left-0 before:top-2 before:w-2 before:h-2 before:bg-bronze before:rotate-45 after:content-[''] after:absolute after:left-[3.5px] after:top-6 after:w-[1px] after:h-full after:bg-bronze/30">
-                        <span className="block text-xs font-sans tracking-widest text-ocean-light mb-1 uppercase">2024</span>
-                        <strong className="text-ocean-dark">Discovered the islands of HTML & CSS.</strong> Built my first raft and learned the basics of navigation.
-                      </li>
-                      <li className="relative pl-8 before:content-[''] before:absolute before:left-0 before:top-2 before:w-2 before:h-2 before:bg-bronze before:rotate-45 after:content-[''] after:absolute after:left-[3.5px] after:top-6 after:w-[1px] after:h-full after:bg-bronze/30">
-                        <span className="block text-xs font-sans tracking-widest text-ocean-light mb-1 uppercase">2025</span>
-                        <strong className="text-ocean-dark">Mastered the Javascript compass.</strong> Navigated through complex logic storms and turbulent state management.
-                      </li>
-                      <li className="relative pl-8 before:content-[''] before:absolute before:left-0 before:top-2 before:w-2 before:h-2 before:bg-bronze before:rotate-45">
-                        <span className="block text-xs font-sans tracking-widest text-ocean-light mb-1 uppercase">Present</span>
-                        <strong className="text-ocean-dark">Architecting grand vessels.</strong> Using ReactJS and Tailwind CSS to build premium, performant galleons seeking new horizons.
-                      </li>
-                    </ul>
+          {/* Right Column: Bio */}
+          <div className="w-full md:w-2/3 font-sans text-lg leading-relaxed text-ocean-mid/90">
+            <p className="first-letter:text-7xl first-letter:font-serif first-letter:text-ocean-dark first-letter:mr-4 first-letter:float-left first-letter:leading-none">
+              Second-year CSE student at USICT, GGSIPU. Professional Googler, part-time debugger, and full-time builder of web applications that aim to be faster, cleaner, and more enjoyable than the last one.
+            </p>
 
-                    
-                  </div>
-                </div>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>,
-        document.body
-      )}
+            <h3 className="text-2xl font-serif mt-14 border-b border-bronze/30 inline-block pb-2 text-ocean-dark">Education</h3>
+            <div className="bg-parchment-dark/10 p-6 border border-bronze/20 mt-6 shadow-inner relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-1 h-full bg-bronze/40" />
+              <p className="text-xl font-serif mb-2 text-ocean-dark">Bachelor of Technology in Computer Science</p>
+              <p className="text-ocean-mid font-sans text-sm italic opacity-80">University School of Information, Communication and Technology (USICT), Class of 2024-2028</p>
+              <p className="text-ocean-dark font-sans text-xs font-bold tracking-[0.2em] mt-3 uppercase opacity-90">CGPA: 8.0</p>
+            </div>
+            
+            <h3 className="text-2xl font-serif mt-14 border-b border-bronze/30 inline-block pb-2 text-ocean-dark">The Journey</h3>
+            <ul className="list-none space-y-8 mt-8">
+              <li className="relative pl-10 before:content-[''] before:absolute before:left-0 before:top-2 before:w-2.5 before:h-2.5 before:bg-bronze before:rotate-45 after:content-[''] after:absolute after:left-[4.5px] after:top-6 after:w-[1px] after:h-[calc(100%+16px)] after:bg-bronze/30">
+                <span className="block text-[10px] font-sans tracking-[0.2em] text-ocean-light mb-1 uppercase opacity-70">2024</span>
+                <strong className="text-ocean-dark font-serif text-xl block mb-1">Discovered the islands of HTML & CSS.</strong>
+                <span className="opacity-90">Built my first raft and learned the basics of navigation.</span>
+              </li>
+              <li className="relative pl-10 before:content-[''] before:absolute before:left-0 before:top-2 before:w-2.5 before:h-2.5 before:bg-bronze before:rotate-45 after:content-[''] after:absolute after:left-[4.5px] after:top-6 after:w-[1px] after:h-[calc(100%+16px)] after:bg-bronze/30">
+                <span className="block text-[10px] font-sans tracking-[0.2em] text-ocean-light mb-1 uppercase opacity-70">2025</span>
+                <strong className="text-ocean-dark font-serif text-xl block mb-1">Mastered the Javascript compass.</strong>
+                <span className="opacity-90">Navigated through complex logic storms and turbulent state management.</span>
+              </li>
+              <li className="relative pl-10 before:content-[''] before:absolute before:left-0 before:top-2 before:w-2.5 before:h-2.5 before:bg-ocean-dark before:rotate-45">
+                <span className="block text-[10px] font-sans tracking-[0.2em] text-ocean-light mb-1 uppercase opacity-70">Present</span>
+                <strong className="text-ocean-dark font-serif text-xl block mb-1">Architecting grand vessels.</strong>
+                <span className="opacity-90">Using ReactJS and Tailwind CSS to build premium, performant galleons seeking new horizons.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </ScrollModal>
     </div>
   )
 }
