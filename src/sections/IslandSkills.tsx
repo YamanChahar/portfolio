@@ -10,17 +10,11 @@ import { useState } from 'react'
 const SKILLS = [
   { name: 'React', icon: SiReact, level: 90 },
   { name: 'Tailwind', icon: SiTailwindcss, level: 95 },
-  // { name: 'Node.js', icon: SiNodedotjs, level: 80 },
   { name: 'Python', icon: SiPython, level: 85 },
-  // { name: 'FastAPI', icon: SiFastapi, level: 75 },
-  // { name: 'Docker', icon: SiDocker, level: 70 },
   { name: 'Git', icon: SiGit, level: 90 },
-  // { name: 'MongoDB', icon: SiMongodb, level: 80 },
 ]
 
 export default function IslandSkills({ x, y }: { x: number, y: number }) {
-  
-
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null)
 
   return (
@@ -84,11 +78,11 @@ export default function IslandSkills({ x, y }: { x: number, y: number }) {
       </div>
 
       {/* Orbiting Skills */}
-      <div className="absolute inset-0 flex items-center justify-center z-10">
+      <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
         {SKILLS.map((skill, i) => {
           const angle = (i / SKILLS.length) * Math.PI * 2
           const radiusX = 180
-          const radiusY = 180 // Circular orbit
+          const radiusY = 180
           const left = Math.cos(angle) * radiusX
           const top = Math.sin(angle) * radiusY
 
@@ -96,12 +90,12 @@ export default function IslandSkills({ x, y }: { x: number, y: number }) {
             <motion.div
               key={skill.name}
               className="absolute flex flex-col items-center justify-center cursor-pointer pointer-events-auto"
-              style={{ x: left, y: top }}
+              style={{ left: `calc(50% + ${left - 32}px)`, top: `calc(50% + ${top - 32}px)` }}
               animate={{
-                y: [top - 10, top + 10, top - 10],
+                y: [-6, 6, -6],
               }}
               transition={{
-                duration: 4 + (i % 3),
+                duration: 3.5 + (i % 2),
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
@@ -120,7 +114,7 @@ export default function IslandSkills({ x, y }: { x: number, y: number }) {
         })}
       </div>
 
-      {/* Striking Hammer Animation (Realistic pacing) */}
+      {/* Striking Hammer Animation */}
       <motion.div 
         className="absolute w-20 h-20 pointer-events-none"
         style={{ left: 280, top: 210, transformOrigin: 'bottom right' }}
@@ -128,9 +122,7 @@ export default function IslandSkills({ x, y }: { x: number, y: number }) {
         transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
       >
         <svg viewBox="0 0 100 100">
-          {/* Handle */}
           <rect x="70" y="30" width="8" height="70" fill="var(--color-island-dirt)" />
-          {/* Head */}
           <rect x="30" y="15" width="50" height="25" fill="var(--color-stone)" />
           <rect x="25" y="18" width="5" height="19" fill="var(--color-stone-dark)" />
         </svg>

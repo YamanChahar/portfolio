@@ -27,22 +27,20 @@ export default function MapScene() {
   const foregroundRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    // Mouse Parallax Effect for depth
+    if (!foregroundRef.current) return
+
+    // Optimized mouse parallax using gsap.quickTo to prevent continuous tween creation
+    const quickX = gsap.quickTo(foregroundRef.current, 'x', { duration: 0.6, ease: 'power2.out' })
+    const quickY = gsap.quickTo(foregroundRef.current, 'y', { duration: 0.6, ease: 'power2.out' })
+
     const handleMouseMove = (e: MouseEvent) => {
-      if (!foregroundRef.current) return
-
-      const x = (e.clientX / window.innerWidth - 0.5) * 40
-      const y = (e.clientY / window.innerHeight - 0.5) * 40
-
-      gsap.to(foregroundRef.current, {
-        x: -x,
-        y: -y,
-        duration: 1,
-        ease: 'power2.out'
-      })
+      const x = (e.clientX / window.innerWidth - 0.5) * 35
+      const y = (e.clientY / window.innerHeight - 0.5) * 35
+      quickX(-x)
+      quickY(-y)
     }
 
-    window.addEventListener('mousemove', handleMouseMove)
+    window.addEventListener('mousemove', handleMouseMove, { passive: true })
     return () => window.removeEventListener('mousemove', handleMouseMove)
   }, [])
 
@@ -54,14 +52,24 @@ export default function MapScene() {
       <div
         ref={mapRef}
         className="absolute top-0 left-0"
-        style={{ width: MAP_SIZE.width, height: MAP_SIZE.height }}
+        style={{ 
+          width: MAP_SIZE.width, 
+          height: MAP_SIZE.height,
+          willChange: 'transform',
+          transform: 'translate3d(0,0,0)',
+          backfaceVisibility: 'hidden'
+        }}
       >
         <MapDecorations />
         <Particles />
         <Path />
 
         {/* Parallax Foreground Layer */}
-        <div ref={foregroundRef} className="absolute inset-0 pointer-events-none">
+        <div 
+          ref={foregroundRef} 
+          className="absolute inset-0 pointer-events-none"
+          style={{ willChange: 'transform' }}
+        >
           <Clouds />
           <Birds />
         </div>
@@ -81,7 +89,7 @@ export default function MapScene() {
         <IslandContact x={ISLAND_COORDINATES[5].x} y={ISLAND_COORDINATES[5].y} />
       </div>
 
-      {/* Weather Overlay (Fixed to viewport to prevent massive GPU texture sizes) */}
+      {/* Weather Overlay */}
       <div className="absolute inset-0 pointer-events-none z-[60]">
         <Weather />
       </div>

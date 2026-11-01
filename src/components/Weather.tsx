@@ -6,43 +6,41 @@ export default function Weather() {
   const lightningRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    // Subtle Fog movement
+    // Smooth, lightweight fog drift
     if (fogRef.current) {
       gsap.to(fogRef.current, {
-        x: '-=1000',
-        y: '+=200',
-        duration: 120,
+        x: '-=400',
+        duration: 80,
         repeat: -1,
         ease: 'none',
+        force3D: true,
         modifiers: {
-          x: gsap.utils.unitize(x => parseFloat(x) % window.innerWidth),
-          y: gsap.utils.unitize(y => parseFloat(y) % window.innerHeight)
+          x: gsap.utils.unitize(x => parseFloat(x) % window.innerWidth)
         }
       })
     }
 
-    // Occasional Lightning
+    // Occasional Lightning Flash
     if (lightningRef.current) {
       const flash = () => {
-        const shouldFlash = Math.random() > 0.7 // 30% chance every check
+        const shouldFlash = Math.random() > 0.7
         if (shouldFlash) {
           gsap.to(lightningRef.current, {
-            opacity: 0.15 + Math.random() * 0.2,
-            duration: 0.1,
+            opacity: 0.12,
+            duration: 0.08,
             yoyo: true,
-            repeat: Math.floor(Math.random() * 3) * 2 + 1, // 1, 3, or 5 repeats
-            ease: 'rough({ template: none.out, strength: 1, points: 20, taper: none, randomize: true, clamp: false })',
+            repeat: 3,
+            ease: 'sine.inOut',
             onComplete: () => {
               gsap.set(lightningRef.current, { opacity: 0 })
             }
           })
         }
         
-        // Check again in 10-25 seconds
-        gsap.delayedCall(10 + Math.random() * 15, flash)
+        gsap.delayedCall(12 + Math.random() * 18, flash)
       }
       
-      gsap.delayedCall(15, flash) // Start first check after 15s
+      gsap.delayedCall(15, flash)
     }
 
     return () => {
@@ -53,26 +51,19 @@ export default function Weather() {
 
   return (
     <div className="absolute inset-0 pointer-events-none z-40 overflow-hidden">
-      {/* Lightning Flash Overlay */}
+      {/* Lightning Flash Overlay - Standard opacity without heavy mix-blend */}
       <div 
         ref={lightningRef}
-        className="absolute inset-0 bg-white opacity-0 mix-blend-overlay"
+        className="absolute inset-0 bg-white opacity-0"
       />
       
-      {/* Dense Fog Layer */}
+      {/* Fog Layer - Soft gradient without heavy GPU blur filter */}
       <div 
         ref={fogRef}
-        className="absolute w-[200%] h-[200%] -top-1/2 -left-1/2 opacity-20 mix-blend-screen"
+        className="absolute w-[180%] h-full -left-[40%] opacity-15 pointer-events-none"
         style={{
-          background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%)',
-          filter: 'blur(40px)',
-        }}
-      />
-      <div 
-        className="absolute w-full h-full opacity-10 mix-blend-screen"
-        style={{
-          background: 'radial-gradient(circle at 20% 80%, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 50%)',
-          filter: 'blur(60px)',
+          background: 'radial-gradient(ellipse 60% 50% at 50% 50%, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 70%)',
+          willChange: 'transform'
         }}
       />
     </div>

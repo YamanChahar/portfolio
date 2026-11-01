@@ -24,6 +24,7 @@ export default function CameraController({ mapRef }: CameraControllerProps) {
           x: window.innerWidth / 2 - (camera.x * camera.zoom),
           y: window.innerHeight / 2 - (camera.y * camera.zoom),
           scale: camera.zoom,
+          force3D: true,
           transformOrigin: '0 0'
         })
       }
@@ -36,23 +37,23 @@ export default function CameraController({ mapRef }: CameraControllerProps) {
           trigger: document.body,
           start: 'top top',
           end: 'bottom bottom',
-          scrub: 1.5,
-        }
+          scrub: 0.5,
+        },
+        onUpdate: updateCamera
       })
 
       // Move camera to each subsequent island
       for (let i = 1; i < ISLAND_COORDINATES.length; i++) {
-        const prev = ISLAND_COORDINATES[i-1]
+        const prev = ISLAND_COORDINATES[i - 1]
         const target = ISLAND_COORDINATES[i]
         const label = `island-${i}`
         
-        // Keep focal point movement synchronized with the TreasureFleet (1s duration, power2.inOut)
+        // Focal point movement
         tl.to(camera, {
           x: target.x,
           y: target.y,
           duration: 1,
           ease: 'power2.inOut',
-          onUpdate: updateCamera
         }, label)
         
         // Zoom out during the open ocean crossing, zoom back in upon arrival
@@ -62,21 +63,18 @@ export default function CameraController({ mapRef }: CameraControllerProps) {
           zoom: zoomOutScale,
           duration: 0.5,
           ease: 'power2.in',
-          onUpdate: updateCamera
         }, label)
         
         tl.to(camera, {
           zoom: target.zoom,
           duration: 0.5,
           ease: 'power2.out',
-          onUpdate: updateCamera
         }, `${label}+=0.5`)
       }
     })
 
     // Handle window resize
     const handleResize = () => {
-      // Could re-trigger layout calculations here if needed
       ScrollTrigger.refresh()
     }
     

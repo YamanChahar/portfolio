@@ -49,8 +49,9 @@ export default function Ships() {
           x: newX - currentX,
           y: newY - currentY,
           rotation: angle + 90,
-          duration: 40 + Math.random() * 40, // Much slower
+          duration: 40 + Math.random() * 40,
           ease: 'sine.inOut',
+          force3D: true,
           onComplete: moveShip
         })
       }

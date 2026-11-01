@@ -1,26 +1,16 @@
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion } from 'framer-motion'
 import Compass from '../components/Compass'
 import { useLenis } from 'lenis/react'
-import { useRef } from 'react'
 
 export default function IslandLanding({ x, y }: { x: number, y: number }) {
-  
-
   const lenis = useLenis()
-  const ref = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] })
-
-  // Parallax effects
-  const yFlag = useTransform(scrollYProgress, [0, 1], [-50, 50])
-  const yTitle = useTransform(scrollYProgress, [0, 1], [-20, 20])
 
   const handleBeginJourney = () => {
-    lenis?.scrollTo(window.innerHeight, { duration: 2, easing: (t) => 1 - Math.pow(1 - t, 4) })
+    lenis?.scrollTo(window.innerHeight, { duration: 1.5, easing: (t) => 1 - Math.pow(1 - t, 4) })
   }
 
   return (
     <div 
-      ref={ref}
       className="absolute transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center w-[600px] h-[600px] pointer-events-auto"
       style={{ left: x, top: y }}
     >
@@ -71,11 +61,8 @@ export default function IslandLanding({ x, y }: { x: number, y: number }) {
 
       <Compass />
 
-      {/* Flag with Parallax */}
-      <motion.div 
-        className="absolute top-20 left-40"
-        style={{ y: yFlag }}
-      >
+      {/* Flag */}
+      <div className="absolute top-20 left-40">
         <svg width="80" height="150" viewBox="0 0 80 150" className="drop-shadow-xl opacity-90">
           <line x1="10" y1="150" x2="10" y2="10" stroke="var(--color-island-dirt)" strokeWidth="4" strokeLinecap="round" />
           <motion.path 
@@ -92,13 +79,10 @@ export default function IslandLanding({ x, y }: { x: number, y: number }) {
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
           />
         </svg>
-      </motion.div>
+      </div>
 
       {/* Content */}
-      <motion.div 
-        style={{ y: yTitle }}
-        className="relative z-10 flex flex-col items-center text-center mt-20 gap-4 pointer-events-auto"
-      >
+      <div className="relative z-10 flex flex-col items-center text-center mt-20 gap-4 pointer-events-auto">
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -140,7 +124,7 @@ export default function IslandLanding({ x, y }: { x: number, y: number }) {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </motion.svg>
         </motion.button>
-      </motion.div>
+      </div>
     </div>
   )
 }

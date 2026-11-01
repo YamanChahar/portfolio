@@ -2,13 +2,13 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { MAP_SIZE } from '../constants/islands'
 
-const CLOUD_DATA = Array.from({ length: 45 }).map((_, i) => ({
+const CLOUD_DATA = Array.from({ length: 16 }).map((_, i) => ({
   id: i,
-  x: Math.random() * MAP_SIZE.width,
-  y: Math.random() * MAP_SIZE.height,
-  scale: 1.5 + Math.random() * 2.5,
-  opacity: 0.2 + Math.random() * 0.3,
-  speed: 10 + Math.random() * 20,
+  x: (i * 260) % MAP_SIZE.width,
+  y: 150 + ((i * 420) % (MAP_SIZE.height - 400)),
+  scale: 1.2 + ((i * 19) % 10) * 0.15,
+  opacity: 0.15 + ((i * 11) % 10) * 0.02,
+  speed: 12 + ((i * 7) % 10) * 1.5,
 }))
 
 export default function Clouds() {
@@ -17,18 +17,25 @@ export default function Clouds() {
   useEffect(() => {
     if (!containerRef.current) return
     const clouds = containerRef.current.children
+    const tweens: gsap.core.Tween[] = []
 
     gsap.utils.toArray(clouds).forEach((cloud: any, i) => {
-      gsap.to(cloud, {
+      const t = gsap.to(cloud, {
         x: `+=${MAP_SIZE.width}`,
-        duration: CLOUD_DATA[i].speed * 10,
+        duration: CLOUD_DATA[i].speed * 12,
         ease: 'none',
         repeat: -1,
+        force3D: true,
         modifiers: {
           x: gsap.utils.unitize(x => parseFloat(x) % MAP_SIZE.width)
         }
       })
+      tweens.push(t)
     })
+
+    return () => {
+      tweens.forEach(t => t.kill())
+    }
   }, [])
 
   return (
@@ -43,7 +50,9 @@ export default function Clouds() {
             transform: `scale(${cloud.scale})`,
             opacity: cloud.opacity,
           }}
-          width="100" height="60" viewBox="0 0 100 60"
+          width="100" 
+          height="60" 
+          viewBox="0 0 100 60"
         >
           <path
             fill="#ffffff"

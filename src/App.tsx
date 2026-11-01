@@ -18,12 +18,12 @@ export default function App() {
     }
 
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.0,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      touchMultiplier: 2,
+      touchMultiplier: 1.5,
     })
 
     lenisRef.current = lenis
@@ -41,14 +41,15 @@ export default function App() {
 
     lenis.on('scroll', ScrollTrigger.update)
 
-    gsap.ticker.add((time) => {
+    const tickerCallback = (time: number) => {
       lenis.raf(time * 1000)
-    })
+    }
 
-    gsap.ticker.lagSmoothing(0)
+    gsap.ticker.add(tickerCallback)
+    gsap.ticker.lagSmoothing(1000, 16)
 
     return () => {
-      gsap.ticker.remove((time) => lenis.raf(time * 1000))
+      gsap.ticker.remove(tickerCallback)
       lenis.destroy()
     }
   }, [])

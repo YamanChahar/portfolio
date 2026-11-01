@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { SiGithub } from 'react-icons/si'
 import { FaExternalLinkAlt } from 'react-icons/fa'
@@ -51,6 +51,15 @@ export default function IslandProjects({ x, y }: { x: number, y: number }) {
 
   const [activeProject, setActiveProject] = useState<number | null>(null)
 
+  const fireflies = useMemo(() => [
+    { left: 240, top: 180, duration: 4.2 },
+    { left: 480, top: 220, duration: 5.1 },
+    { left: 330, top: 290, duration: 3.8 },
+    { left: 520, top: 160, duration: 4.7 },
+    { left: 290, top: 240, duration: 5.4 },
+    { left: 440, top: 310, duration: 3.9 },
+  ], [])
+
   return (
     <div
       className="absolute transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center w-[800px] h-[800px] pointer-events-auto"
@@ -70,24 +79,23 @@ export default function IslandProjects({ x, y }: { x: number, y: number }) {
         <path d="M 300 200 Q 400 250 500 200" fill="none" stroke="var(--color-stone-dark)" strokeWidth="4" />
       </svg>
 
-      {/* Jungle Fireflies (Animated glowing dots) */}
+      {/* Jungle Fireflies */}
       <div className="absolute inset-0 pointer-events-none">
-        {Array.from({ length: 8 }).map((_, i) => (
+        {fireflies.map((ff, i) => (
           <motion.div
             key={`firefly-${i}`}
             className="absolute w-2 h-2 rounded-full bg-[#c2ff66] blur-[2px]"
             style={{
-              left: 200 + Math.random() * 400,
-              top: 100 + Math.random() * 300
+              left: ff.left,
+              top: ff.top
             }}
             animate={{
-              x: (Math.random() - 0.5) * 100,
-              y: (Math.random() - 0.5) * 100,
-              opacity: [0, 0.8, 0],
-              scale: [0.5, 1.5, 0.5]
+              y: [-12, 12, -12],
+              opacity: [0.2, 0.85, 0.2],
+              scale: [0.8, 1.3, 0.8]
             }}
             transition={{
-              duration: 3 + Math.random() * 4,
+              duration: ff.duration,
               repeat: Infinity,
               ease: "easeInOut"
             }}

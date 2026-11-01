@@ -1,111 +1,540 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import ScrollModal from '../components/ScrollModal'
+import { 
+  GiCompass, 
+  GiScrollQuill, 
+  GiAnchor, 
+  GiSparkles, 
+  GiGraduateCap, 
+  GiCoffeeCup, 
+  GiOpenBook,
+  GiShipWheel,
+  GiSextant
+} from 'react-icons/gi'
+import { FaAward, FaQuoteLeft, FaBolt, FaDraftingCompass, FaEye } from 'react-icons/fa'
+
 export default function IslandAbout({ x, y }: { x: number, y: number }) {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
     <div 
-      className="absolute transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center w-[500px] h-[500px] pointer-events-auto"
+      className="absolute transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center w-[520px] h-[520px] pointer-events-auto"
       style={{ left: x, top: y }}
     >
-      <svg className="absolute inset-0 w-full h-full pointer-events-none drop-shadow-2xl opacity-90" viewBox="0 0 500 500">
+      {/* Island base SVG - Ancient Cartographer's Sanctuary */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none drop-shadow-2xl opacity-90" viewBox="0 0 520 520">
+        <defs>
+          {/* Subtle magical glow from the altar */}
+          <radialGradient id="altarGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#c5a059" stopOpacity="0.45" />
+            <stop offset="60%" stopColor="#b08d57" stopOpacity="0.15" />
+            <stop offset="100%" stopColor="transparent" stopOpacity="0" />
+          </radialGradient>
+          {/* Torchlight glow */}
+          <radialGradient id="torchGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#e5a13c" stopOpacity="0.7" />
+            <stop offset="100%" stopColor="transparent" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+
+        {/* Island Base Coastline */}
         <path 
-          d="M 250 40 C 350 20, 480 80, 470 250 C 460 380, 360 470, 250 480 C 120 490, 20 380, 30 250 C 40 120, 150 60, 250 40 Z" 
+          d="M 260 35 C 370 15, 500 75, 490 260 C 480 400, 380 495, 260 500 C 120 505, 15 395, 25 260 C 35 125, 145 55, 260 35 Z" 
           fill="var(--color-island-base)" 
           stroke="var(--color-island-highlight)" 
           strokeWidth="4" 
         />
-        {/* Ancient Ruins Base (Stone Grey) */}
-        <path d="M 150 200 L 350 200 L 330 300 L 170 300 Z" fill="var(--color-stone)" stroke="var(--color-stone-dark)" strokeWidth="2" />
-        <path d="M 180 150 L 320 150 L 330 200 L 170 200 Z" fill="var(--color-stone-dark)" stroke="var(--color-stone)" strokeWidth="2" />
-        {/* Pillars */}
-        <rect x="180" y="80" width="20" height="70" fill="var(--color-stone)" stroke="var(--color-stone-dark)" strokeWidth="1" />
-        <rect x="300" y="80" width="20" height="70" fill="var(--color-stone)" stroke="var(--color-stone-dark)" strokeWidth="1" />
-        <path d="M 160 80 L 340 80 L 320 50 L 180 50 Z" fill="var(--color-stone-dark)" stroke="var(--color-stone)" strokeWidth="2" />
-        {/* Subtle vines/moss */}
-        <path d="M 180 80 Q 170 120 190 150" fill="none" stroke="var(--color-island-base)" strokeWidth="2" opacity="0.8" />
-        <path d="M 320 80 Q 330 110 310 150" fill="none" stroke="var(--color-island-base)" strokeWidth="2" opacity="0.8" />
+
+        {/* Topography and Sand Patches */}
+        <path d="M 120 180 Q 260 140 400 180" fill="none" stroke="var(--color-island-highlight)" strokeWidth="2" opacity="0.4" />
+        <path d="M 100 320 Q 260 360 420 320" fill="none" stroke="var(--color-island-highlight)" strokeWidth="2" opacity="0.4" />
+        <ellipse cx="260" cy="285" rx="150" ry="85" fill="var(--color-island-dirt)" opacity="0.35" />
+
+        {/* Altar Light Aura */}
+        <circle cx="260" cy="245" r="110" fill="url(#altarGlow)" className="animate-pulse" />
+
+        {/* Ancient Sanctuary Stone Steps & Foundation */}
+        <polygon points="120,335 400,335 425,365 95,365" fill="var(--color-stone-dark)" stroke="var(--color-stone)" strokeWidth="2" />
+        <polygon points="140,305 380,305 400,335 120,335" fill="var(--color-stone)" stroke="var(--color-stone-dark)" strokeWidth="2" />
+        <polygon points="165,275 355,275 380,305 140,305" fill="var(--color-stone-dark)" stroke="var(--color-stone)" strokeWidth="2" />
+
+        {/* Stone Pedestal for the Grimoire */}
+        <polygon points="215,240 305,240 320,275 200,275" fill="var(--color-stone)" stroke="var(--color-stone-dark)" strokeWidth="2" />
+        <rect x="225" y="215" width="70" height="25" fill="var(--color-stone-dark)" stroke="var(--color-bronze)" strokeWidth="1" />
+        <path d="M 230 227 L 290 227" stroke="var(--color-treasure-gold)" strokeWidth="1.5" strokeDasharray="3 3" opacity="0.8" />
+
+        {/* Weathered Ancient Pillars */}
+        {/* Left Outer Pillar */}
+        <rect x="150" y="115" width="22" height="160" fill="var(--color-stone)" stroke="var(--color-stone-dark)" strokeWidth="1.5" />
+        <rect x="145" y="105" width="32" height="10" fill="var(--color-stone-dark)" stroke="var(--color-stone)" strokeWidth="1" />
+        <rect x="145" y="270" width="32" height="8" fill="var(--color-stone-dark)" stroke="var(--color-stone)" strokeWidth="1" />
+
+        {/* Left Inner Pillar (Broken/Weathered) */}
+        <rect x="195" y="150" width="20" height="125" fill="var(--color-stone)" stroke="var(--color-stone-dark)" strokeWidth="1.5" />
+        <rect x="190" y="270" width="30" height="8" fill="var(--color-stone-dark)" stroke="var(--color-stone)" strokeWidth="1" />
+        {/* Broken top fragment */}
+        <polygon points="195,150 205,138 215,150" fill="var(--color-stone-dark)" />
+
+        {/* Right Inner Pillar */}
+        <rect x="305" y="135" width="20" height="140" fill="var(--color-stone)" stroke="var(--color-stone-dark)" strokeWidth="1.5" />
+        <rect x="300" y="270" width="30" height="8" fill="var(--color-stone-dark)" stroke="var(--color-stone)" strokeWidth="1" />
+
+        {/* Right Outer Pillar */}
+        <rect x="348" y="115" width="22" height="160" fill="var(--color-stone)" stroke="var(--color-stone-dark)" strokeWidth="1.5" />
+        <rect x="343" y="105" width="32" height="10" fill="var(--color-stone-dark)" stroke="var(--color-stone)" strokeWidth="1" />
+        <rect x="343" y="270" width="32" height="8" fill="var(--color-stone-dark)" stroke="var(--color-stone)" strokeWidth="1" />
+
+        {/* Stone Architrave / Pediment Beam */}
+        <polygon points="135,105 385,105 365,75 155,75" fill="var(--color-stone-dark)" stroke="var(--color-stone)" strokeWidth="2" />
+        <polygon points="155,75 365,75 260,35" fill="var(--color-stone)" stroke="var(--color-stone-dark)" strokeWidth="2" />
+
+        {/* Celestial / Eye Carving in Pediment */}
+        <circle cx="260" cy="62" r="10" fill="none" stroke="var(--color-treasure-gold)" strokeWidth="1.5" opacity="0.8" />
+        <circle cx="260" cy="62" r="3" fill="var(--color-treasure-gold)" opacity="0.9" />
+        <path d="M 245 62 Q 260 52 275 62 Q 260 72 245 62 Z" fill="none" stroke="var(--color-treasure-gold)" strokeWidth="1.5" opacity="0.8" />
+
+        {/* Braziers with Warm Firelight */}
+        {/* Left Brazier */}
+        <circle cx="115" cy="315" r="28" fill="url(#torchGlow)" opacity="0.8" />
+        <path d="M 105 335 L 125 335 L 122 350 L 108 350 Z" fill="var(--color-stone-dark)" />
+        <path d="M 100 325 Q 115 340 130 325" fill="none" stroke="var(--color-bronze)" strokeWidth="3" />
+        <ellipse cx="115" cy="323" rx="6" ry="8" fill="#ff7700" className="animate-pulse" />
+        <ellipse cx="115" cy="322" rx="3" ry="5" fill="#ffcc00" />
+
+        {/* Right Brazier */}
+        <circle cx="405" cy="315" r="28" fill="url(#torchGlow)" opacity="0.8" />
+        <path d="M 395 335 L 415 335 L 412 350 L 398 350 Z" fill="var(--color-stone-dark)" />
+        <path d="M 390 325 Q 405 340 420 325" fill="none" stroke="var(--color-bronze)" strokeWidth="3" />
+        <ellipse cx="405" cy="323" rx="6" ry="8" fill="#ff7700" className="animate-pulse" />
+        <ellipse cx="405" cy="322" rx="3" ry="5" fill="#ffcc00" />
+
+        {/* Climbing Ivy & Moss */}
+        <path d="M 152 270 Q 145 220 156 190 Q 148 160 154 125" fill="none" stroke="var(--color-island-base)" strokeWidth="3" opacity="0.85" />
+        <path d="M 368 270 Q 375 230 366 185 Q 374 150 368 125" fill="none" stroke="var(--color-island-base)" strokeWidth="3" opacity="0.85" />
+        <circle cx="152" cy="205" r="3" fill="var(--color-island-highlight)" />
+        <circle cx="157" cy="175" r="2.5" fill="var(--color-island-highlight)" />
+        <circle cx="367" cy="215" r="3" fill="var(--color-island-highlight)" />
+        <circle cx="372" cy="165" r="2.5" fill="var(--color-island-highlight)" />
       </svg>
 
-      <motion.button
+      {/* Floating Stardust / Mystical Runes around Altar */}
+      <div className="absolute inset-0 pointer-events-none">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <motion.div
+            key={`mystic-particle-${i}`}
+            className="absolute w-1.5 h-1.5 rounded-full bg-treasure-gold blur-[1px]"
+            style={{
+              left: 210 + (i * 20),
+              top: 200 + ((i % 3) * 25)
+            }}
+            animate={{
+              y: [-15, -45, -15],
+              x: [(i % 2 === 0 ? -10 : 10), (i % 2 === 0 ? 10 : -10), (i % 2 === 0 ? -10 : 10)],
+              opacity: [0.2, 0.9, 0.2],
+              scale: [0.7, 1.4, 0.7]
+            }}
+            transition={{
+              duration: 3 + i * 0.7,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+        ))}
+      </div>
+
+      {/* The Captain's Grimoire / Interactive Tome */}
+      <motion.div
+        className="relative z-20 flex flex-col items-center cursor-pointer pointer-events-auto mt-2"
         onClick={() => setIsOpen(true)}
-        whileHover={{ scale: 1.05, y: -5 }}
-        whileTap={{ scale: 0.95 }}
-        className="relative z-10 w-24 h-24 bg-parchment rounded-sm shadow-xl flex items-center justify-center border border-bronze cursor-pointer mt-10 transition-transform"
-        style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.05' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.1'/%3E%3C/svg%3E")` }}
-        title="Read Journal"
+        whileHover={{ scale: 1.08 }}
+        whileTap={{ scale: 0.96 }}
       >
-        <svg className="w-12 h-12 text-ocean-dark opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-        </svg>
-      </motion.button>
-      
-      <h2 className="mt-8 text-2xl font-serif text-parchment drop-shadow-md z-10 tracking-[0.2em] uppercase opacity-90">
+        {/* Floating Grimoire Book */}
+        <motion.div
+          animate={{
+            y: [-5, 5, -5],
+            rotate: [-1, 1, -1]
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          className="relative w-28 h-32 rounded-r-md rounded-l-xs shadow-[0_15px_30px_rgba(0,0,0,0.6)] flex items-center justify-center border-2 border-bronze/80 bg-gradient-to-br from-[#402218] via-[#2d1810] to-[#1c0f0a] group"
+          style={{
+            perspective: 600,
+            transformStyle: "preserve-3d"
+          }}
+        >
+          {/* Leather Book Spine */}
+          <div className="absolute left-0 top-0 bottom-0 w-3.5 bg-gradient-to-r from-[#170a05] to-[#3a1b11] border-r border-bronze/40 flex flex-col justify-between py-2">
+            <div className="w-full h-0.5 bg-treasure-gold/60" />
+            <div className="w-full h-0.5 bg-treasure-gold/60" />
+            <div className="w-full h-0.5 bg-treasure-gold/60" />
+            <div className="w-full h-0.5 bg-treasure-gold/60" />
+          </div>
+
+          {/* Ornate Gold Filigree Corners */}
+          <div className="absolute top-1 right-1 w-4 h-4 border-t-2 border-r-2 border-treasure-gold/80" />
+          <div className="absolute bottom-1 right-1 w-4 h-4 border-b-2 border-r-2 border-treasure-gold/80" />
+
+          {/* Golden Center Medallion on Cover */}
+          <div className="relative z-10 w-14 h-14 rounded-full border border-treasure-gold/60 flex items-center justify-center bg-ocean-dark/40 shadow-inner group-hover:border-treasure-gold transition-colors">
+            <GiCompass className="w-9 h-9 text-treasure-gold group-hover:rotate-45 transition-transform duration-700 ease-out" />
+          </div>
+
+          {/* Bookmark Ribbon */}
+          <div className="absolute -bottom-4 left-6 w-3 h-6 bg-[#992222] border-x border-[#661111] shadow-md" />
+
+          {/* Glowing Aura on Hover */}
+          <div className="absolute -inset-1 rounded-r-md rounded-l-xs bg-treasure-gold/20 filter blur-sm opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+        </motion.div>
+
+        {/* Interactive Floating Badge */}
+        <motion.div 
+          className="mt-6 flex items-center gap-2 px-3.5 py-1.5 bg-ocean-dark/90 border border-bronze/60 rounded-full shadow-lg backdrop-blur-xs text-parchment"
+          whileHover={{ borderColor: "var(--color-treasure-gold)" }}
+        >
+          <span className="w-2 h-2 rounded-full bg-treasure-gold animate-ping" />
+          <span className="text-[11px] font-serif tracking-[0.25em] uppercase text-parchment/95 flex items-center gap-1.5">
+            <GiScrollQuill className="text-treasure-gold text-sm" />
+            Read Journal
+          </span>
+        </motion.div>
+      </motion.div>
+
+      {/* Island Title */}
+      <h2 className="mt-4 text-2xl font-serif text-parchment drop-shadow-md z-10 tracking-[0.25em] uppercase opacity-95">
         About
       </h2>
 
+      {/* The Captain's Dossier Modal */}
       <ScrollModal 
         isOpen={isOpen} 
         onClose={() => setIsOpen(false)}
-        mapLabel="Captain's Log"
+        mapLabel="Captain's Archive • Island of Lore"
         title="Yaman Chahar"
-        subtitle="Computer Science Engineer"
+        subtitle="Computer Science Engineer & Web Craftsman"
       >
-        <div className="flex flex-col md:flex-row gap-12">
-          {/* Left Column: Log Details */}
-          <div className="w-full md:w-1/3 flex flex-col gap-8">
-            <div className="relative w-40 h-40 mx-auto rounded-full border border-ocean-dark/20 flex items-center justify-center overflow-hidden z-10 bg-parchment-dark/10 mix-blend-multiply shadow-[inset_0_0_20px_rgba(0,0,0,0.05)]">
-               <svg viewBox="0 0 100 100" className="w-28 h-28 opacity-60">
-                 <circle cx="50" cy="50" r="40" fill="none" stroke="var(--color-ocean-dark)" strokeWidth="1.5" strokeDasharray="4 4" />
-                 <circle cx="50" cy="50" r="32" fill="none" stroke="var(--color-ocean-dark)" strokeWidth="0.5" />
-                 <polygon points="50,10 55,45 90,50 55,55 50,90 45,55 10,50 45,45" fill="none" stroke="var(--color-ocean-dark)" strokeWidth="1.5" />
-                 <circle cx="50" cy="50" r="4" fill="var(--color-ocean-dark)" />
-               </svg>
-            </div>
-            <div className="text-center mt-4">
-              <p className="text-xs font-sans tracking-[0.3em] text-ocean-light uppercase opacity-80 mb-3 border-b border-bronze/30 pb-2 inline-block">Expedition Status</p>
-              <p className="font-serif text-ocean-dark text-lg italic">Learning • Building • Exploring</p>
-            </div>
-            <div className="text-center mt-auto pt-8">
-              <p className="text-[10px] font-sans tracking-[0.3em] text-ocean-mid uppercase opacity-50 mb-1">Entry: Day 742</p>
-              <p className="text-[10px] font-sans tracking-[0.3em] text-ocean-mid uppercase opacity-50">Coord: 28°36'N 77°13'E</p>
-            </div>
-          </div>
-
-          {/* Right Column: Bio */}
-          <div className="w-full md:w-2/3 font-sans text-lg leading-relaxed text-ocean-mid/90">
-            <p className="first-letter:text-7xl first-letter:font-serif first-letter:text-ocean-dark first-letter:mr-4 first-letter:float-left first-letter:leading-none">
-              Second-year CSE student at USICT, GGSIPU. Professional Googler, part-time debugger, and full-time builder of web applications that aim to be faster, cleaner, and more enjoyable than the last one.
-            </p>
-
-            <h3 className="text-2xl font-serif mt-14 border-b border-bronze/30 inline-block pb-2 text-ocean-dark">Education</h3>
-            <div className="bg-parchment-dark/10 p-6 border border-bronze/20 mt-6 shadow-inner relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-1 h-full bg-bronze/40" />
-              <p className="text-xl font-serif mb-2 text-ocean-dark">Bachelor of Technology in Computer Science</p>
-              <p className="text-ocean-mid font-sans text-sm italic opacity-80">University School of Information, Communication and Technology (USICT), Class of 2024-2028</p>
-              <p className="text-ocean-dark font-sans text-xs font-bold tracking-[0.2em] mt-3 uppercase opacity-90">CGPA: 8.0</p>
-            </div>
+        <div className="flex flex-col lg:flex-row gap-10">
+          
+          {/* ================= LEFT COLUMN: VOYAGER DOSSIER ================= */}
+          <div className="w-full lg:w-1/3 flex flex-col gap-6">
             
-            <h3 className="text-2xl font-serif mt-14 border-b border-bronze/30 inline-block pb-2 text-ocean-dark">The Journey</h3>
-            <ul className="list-none space-y-8 mt-8">
-              <li className="relative pl-10 before:content-[''] before:absolute before:left-0 before:top-2 before:w-2.5 before:h-2.5 before:bg-bronze before:rotate-45 after:content-[''] after:absolute after:left-[4.5px] after:top-6 after:w-[1px] after:h-[calc(100%+16px)] after:bg-bronze/30">
-                <span className="block text-[10px] font-sans tracking-[0.2em] text-ocean-light mb-1 uppercase opacity-70">2024</span>
-                <strong className="text-ocean-dark font-serif text-xl block mb-1">Discovered the islands of HTML & CSS.</strong>
-                <span className="opacity-90">Built my first raft and learned the basics of navigation.</span>
-              </li>
-              <li className="relative pl-10 before:content-[''] before:absolute before:left-0 before:top-2 before:w-2.5 before:h-2.5 before:bg-bronze before:rotate-45 after:content-[''] after:absolute after:left-[4.5px] after:top-6 after:w-[1px] after:h-[calc(100%+16px)] after:bg-bronze/30">
-                <span className="block text-[10px] font-sans tracking-[0.2em] text-ocean-light mb-1 uppercase opacity-70">2025</span>
-                <strong className="text-ocean-dark font-serif text-xl block mb-1">Mastered the Javascript compass.</strong>
-                <span className="opacity-90">Navigated through complex logic storms and turbulent state management.</span>
-              </li>
-              <li className="relative pl-10 before:content-[''] before:absolute before:left-0 before:top-2 before:w-2.5 before:h-2.5 before:bg-ocean-dark before:rotate-45">
-                <span className="block text-[10px] font-sans tracking-[0.2em] text-ocean-light mb-1 uppercase opacity-70">Present</span>
-                <strong className="text-ocean-dark font-serif text-xl block mb-1">Architecting grand vessels.</strong>
-                <span className="opacity-90">Using ReactJS and Tailwind CSS to build premium, performant galleons seeking new horizons.</span>
-              </li>
-            </ul>
+            {/* Ornate Astrolabe Medallion */}
+            <div className="relative w-48 h-48 mx-auto rounded-full border-2 border-bronze/40 flex items-center justify-center bg-gradient-to-b from-parchment-dark/30 to-parchment/10 shadow-[inset_0_0_30px_rgba(139,115,85,0.25)] p-2">
+              
+              {/* Outer Rotating Astrolabe Ring */}
+              <motion.div 
+                className="absolute inset-2 rounded-full border border-dashed border-ocean-dark/40 pointer-events-none"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+              />
+
+              {/* Second Counter-rotating Ring */}
+              <motion.div 
+                className="absolute inset-4 rounded-full border border-ocean-dark/20 pointer-events-none"
+                animate={{ rotate: -360 }}
+                transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
+              />
+
+              {/* Center Medallion Artwork */}
+              <div className="relative w-32 h-32 rounded-full border border-bronze/60 flex flex-col items-center justify-center bg-ocean-dark/5 shadow-inner">
+                <GiShipWheel className="w-16 h-16 text-ocean-dark/75 hover:rotate-90 transition-transform duration-1000" />
+                <span className="font-serif text-[11px] font-bold text-ocean-dark tracking-[0.3em] uppercase mt-1">
+                  Navigator
+                </span>
+              </div>
+
+              {/* Cardinal Compass Markers */}
+              <span className="absolute top-1 text-[9px] font-serif font-bold text-bronze tracking-widest">N</span>
+              <span className="absolute bottom-1 text-[9px] font-serif font-bold text-bronze tracking-widest">S</span>
+              <span className="absolute left-1.5 text-[9px] font-serif font-bold text-bronze tracking-widest">W</span>
+              <span className="absolute right-1.5 text-[9px] font-serif font-bold text-bronze tracking-widest">E</span>
+            </div>
+
+            {/* Expedition Status Plaque */}
+            <div className="text-center bg-parchment-dark/20 border border-bronze/30 p-4 rounded-xs shadow-xs">
+              <div className="flex items-center justify-center gap-2 mb-1.5">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-600 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-700" />
+                </span>
+                <p className="text-[10px] font-sans font-bold tracking-[0.3em] text-ocean-mid uppercase opacity-90">
+                  Expedition Status
+                </p>
+              </div>
+              <p className="font-serif text-ocean-dark text-base font-semibold">
+                Active Sea Trials
+              </p>
+              <p className="text-xs font-sans italic text-ocean-mid/80 mt-0.5">
+                Available for internships, projects & collaborations
+              </p>
+            </div>
+
+            {/* Manifest / Navigational Specs */}
+            <div className="bg-parchment-dark/15 border border-bronze/25 p-4 rounded-xs space-y-3 font-sans text-xs">
+              <div className="flex justify-between items-center border-b border-bronze/20 pb-2">
+                <span className="text-ocean-light tracking-wider uppercase font-semibold text-[10px]">Home Port</span>
+                <span className="text-ocean-dark font-serif font-medium">New Delhi, India</span>
+              </div>
+              <div className="flex justify-between items-center border-b border-bronze/20 pb-2">
+                <span className="text-ocean-light tracking-wider uppercase font-semibold text-[10px]">Academic Guild</span>
+                <span className="text-ocean-dark font-serif font-medium">USICT, GGSIPU</span>
+              </div>
+              <div className="flex justify-between items-center border-b border-bronze/20 pb-2">
+                <span className="text-ocean-light tracking-wider uppercase font-semibold text-[10px]">Coordinates</span>
+                <span className="text-ocean-dark font-mono text-[11px]">28°36'N, 77°13'E</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-ocean-light tracking-wider uppercase font-semibold text-[10px]">Voyage Stage</span>
+                <span className="text-ocean-dark font-serif font-medium">3rd Year Undergrad ('28)</span>
+              </div>
+            </div>
+
+            {/* Wax Seal of Admiralty */}
+            <div className="mt-2 flex items-center justify-center gap-3 py-2 opacity-85">
+              <div className="w-12 h-12 rounded-full bg-[#822222] border-2 border-[#5a1414] shadow-md flex items-center justify-center text-parchment transform -rotate-12">
+                <GiAnchor className="text-xl" />
+              </div>
+              <div className="text-left font-serif text-[10px] text-ocean-dark leading-tight">
+                <p className="font-bold tracking-widest uppercase">Verified Voyager</p>
+                <p className="opacity-75 italic">Admiralty Logbook Registry</p>
+              </div>
+            </div>
+
           </div>
+
+          {/* ================= RIGHT COLUMN: EXPEDITION CHRONICLE ================= */}
+          <div className="w-full lg:w-2/3 flex flex-col gap-8 font-sans">
+            
+            {/* The Explorer's Manifesto (Bio) */}
+            <div className="space-y-4 text-ocean-dark/90 leading-relaxed text-lg">
+              <p className="first-letter:text-6xl first-letter:font-serif first-letter:font-bold first-letter:text-ocean-dark first-letter:mr-3.5 first-letter:float-left first-letter:leading-none">
+                Second-year Computer Science engineer at USICT (GGSIPU), charting courses through modern web engineering and interactive frontend architectures. A passionate builder who thrives at the intersection of precision code, dynamic state orchestration, and atmospheric visual storytelling.
+              </p>
+              {/* <p className="text-base text-ocean-mid/90 leading-relaxed">
+                Whether deciphering complex algorithmic challenges or crafting responsive, silky-smooth applications, my voyage is centered around creating digital vessels that are faster, cleaner, and more resilient than the last.
+              </p> */}
+            </div>
+
+            {/* Mariner's Creed (Quote Block) */}
+            <div className="relative pl-6 pr-4 py-4 bg-parchment-dark/20 border-l-4 border-bronze rounded-r-xs italic text-ocean-dark/95 text-base">
+              <FaQuoteLeft className="absolute -top-3 left-3 text-bronze/40 text-xl" />
+              <p>
+                "Any vessel can sail upon calm waters; it takes thorough craftsmanship, strict architectural discipline, and curiosity to navigate uncharted digital horizons."
+              </p>
+            </div>
+
+            {/* Guild Accreditation / Education Certificate */}
+            <div>
+              <div className="flex items-center gap-2 mb-3">
+                <GiGraduateCap className="text-2xl text-bronze" />
+                <h3 className="text-2xl font-serif text-ocean-dark tracking-wide">
+                  Academy & Guild Accreditation
+                </h3>
+              </div>
+
+              <div className="bg-parchment-dark/15 p-6 border border-bronze/30 shadow-inner relative overflow-hidden rounded-xs">
+                {/* Vintage Corner Brackets */}
+                <span className="absolute top-1.5 left-2 text-bronze/60 font-serif text-sm">⌜</span>
+                <span className="absolute top-1.5 right-2 text-bronze/60 font-serif text-sm">⌝</span>
+                <span className="absolute bottom-1.5 left-2 text-bronze/60 font-serif text-sm">⌞</span>
+                <span className="absolute bottom-1.5 right-2 text-bronze/60 font-serif text-sm">⌟</span>
+
+                <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-bronze/20 pb-3">
+                  <div>
+                    <span className="text-[10px] font-sans font-bold uppercase tracking-[0.25em] text-bronze block mb-1">
+                      Degree Program
+                    </span>
+                    <h4 className="text-xl font-serif font-bold text-ocean-dark">
+                      Bachelor of Technology in Computer Science & Engineering
+                    </h4>
+                  </div>
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-ocean-dark/10 border border-bronze/30 rounded-xs font-serif text-xs font-bold text-ocean-dark">
+                    <FaAward className="text-bronze text-sm" />
+                    CGPA: 8.0+ / 10
+                  </span>
+                </div>
+
+                <div className="mt-3">
+                  <p className="text-ocean-dark font-serif text-sm font-medium">
+                    University School of Information, Communication and Technology (USICT)
+                  </p>
+                  <p className="text-ocean-mid text-xs italic opacity-85 mt-0.5">
+                    Guru Gobind Singh Indraprastha University (GGSIPU) • Class of 2024 – 2028
+                  </p>
+                </div>
+
+                {/* Core Disciplines */}
+                <div className="mt-4 pt-4 border-t border-bronze/20">
+                  <p className="text-[11px] font-sans uppercase tracking-[0.2em] text-ocean-light font-semibold mb-2">
+                    Core Engineering Foundations
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {[
+                      'Data Structures & Algorithms',
+                      'Object-Oriented Programming',
+                      'Database Management Systems',
+                      'Web Engineering',
+                      'Operating Systems',
+                      'Computer Architecture'
+                    ].map((course) => (
+                      <span 
+                        key={course}
+                        className="text-xs px-2.5 py-1 bg-parchment/60 border border-bronze/30 text-ocean-dark rounded-xs font-sans font-medium"
+                      >
+                        {course}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* The Navigator's Creed: Core Principles */}
+            <div>
+              <div className="flex items-center gap-2 mb-3">
+                <GiSextant className="text-2xl text-bronze" />
+                <h3 className="text-2xl font-serif text-ocean-dark tracking-wide">
+                  Navigational Principles
+                </h3>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {/* Pillar 1 */}
+                <div className="bg-parchment-dark/15 p-4 border border-bronze/25 rounded-xs flex flex-col justify-between hover:border-bronze/60 transition-colors">
+                  <div>
+                    <div className="w-8 h-8 rounded-full bg-ocean-dark/10 flex items-center justify-center mb-3 text-bronze">
+                      <FaBolt />
+                    </div>
+                    <h4 className="font-serif font-bold text-ocean-dark text-base mb-1">
+                      Swift Currents
+                    </h4>
+                    <p className="text-xs text-ocean-mid/90 leading-relaxed">
+                      Zero unnecessary cargo. Dedicated to lightning-fast load times, clean bundle sizes, and snappy 60fps animations.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Pillar 2 */}
+                <div className="bg-parchment-dark/15 p-4 border border-bronze/25 rounded-xs flex flex-col justify-between hover:border-bronze/60 transition-colors">
+                  <div>
+                    <div className="w-8 h-8 rounded-full bg-ocean-dark/10 flex items-center justify-center mb-3 text-bronze">
+                      <FaDraftingCompass />
+                    </div>
+                    <h4 className="font-serif font-bold text-ocean-dark text-base mb-1">
+                      True North Architecture
+                    </h4>
+                    <p className="text-xs text-ocean-mid/90 leading-relaxed">
+                      Modular component hierarchies, clean abstractions, and predictable state structures that weather storm surges.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Pillar 3 */}
+                <div className="bg-parchment-dark/15 p-4 border border-bronze/25 rounded-xs flex flex-col justify-between hover:border-bronze/60 transition-colors">
+                  <div>
+                    <div className="w-8 h-8 rounded-full bg-ocean-dark/10 flex items-center justify-center mb-3 text-bronze">
+                      <FaEye />
+                    </div>
+                    <h4 className="font-serif font-bold text-ocean-dark text-base mb-1">
+                      Immersive Craft
+                    </h4>
+                    <p className="text-xs text-ocean-mid/90 leading-relaxed">
+                      Every pixel and interaction tells a story. Marrying aesthetic flair with effortless usability and accessibility.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Tactical Armory / Toolkit Spotlight */}
+            <div>
+              <div className="flex items-center gap-2 mb-3">
+                <GiOpenBook className="text-2xl text-bronze" />
+                <h3 className="text-2xl font-serif text-ocean-dark tracking-wide">
+                  Armory & Flagship Instruments
+                </h3>
+              </div>
+
+              <div className="bg-parchment-dark/15 p-5 border border-bronze/25 rounded-xs space-y-4">
+                {/* Category 1 */}
+                <div>
+                  <span className="text-[10px] font-sans font-bold uppercase tracking-[0.25em] text-bronze block mb-2">
+                    Deck & Sails (Frontend Craft)
+                  </span>
+                  <div className="flex flex-wrap gap-2 text-xs">
+                    {['React.js', 'TypeScript', 'Tailwind CSS', 'Next.js', 'Framer Motion', 'HTML5 / Modern CSS', 'Responsive UI'].map((skill) => (
+                      <span key={skill} className="px-3 py-1 bg-parchment border border-bronze/35 text-ocean-dark rounded-xs font-serif font-medium shadow-xs">
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Category 2 */}
+                <div>
+                  <span className="text-[10px] font-sans font-bold uppercase tracking-[0.25em] text-bronze block mb-2">
+                    Engine Room & Holds (Backend & Data)
+                  </span>
+                  <div className="flex flex-wrap gap-2 text-xs">
+                    {['Node.js', 'Express.js', 'MongoDB', 'REST APIs', 'JWT Authentication', 'Socket.io'].map((skill) => (
+                      <span key={skill} className="px-3 py-1 bg-parchment border border-bronze/35 text-ocean-dark rounded-xs font-serif font-medium shadow-xs">
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Category 3 */}
+                <div>
+                  <span className="text-[10px] font-sans font-bold uppercase tracking-[0.25em] text-bronze block mb-2">
+                    Navigational Rigging (Workflow & Tools)
+                  </span>
+                  <div className="flex flex-wrap gap-2 text-xs">
+                    {['Git / GitHub', 'Vite', 'Postman', 'Figma Prototyping', 'Vercel Deployment', 'VS Code'].map((skill) => (
+                      <span key={skill} className="px-3 py-1 bg-parchment border border-bronze/35 text-ocean-dark rounded-xs font-serif font-medium shadow-xs">
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Behind The Helm (Voyager Lore / Quirks) */}
+            <div className="bg-parchment-dark/20 p-4 border border-bronze/30 rounded-xs flex flex-wrap items-center justify-between gap-4 text-xs text-ocean-dark">
+              <div className="flex items-center gap-2">
+                <GiCoffeeCup className="text-xl text-bronze" />
+                <span><strong>Fuel:</strong> Dark coffee & late-night problem solving</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <GiSparkles className="text-xl text-bronze" />
+                <span><strong>Drive:</strong> Pixel-perfect UI & silky physics</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <GiCompass className="text-xl text-bronze" />
+                <span><strong>Direction:</strong> Always seeking new challenges</span>
+              </div>
+            </div>
+
+            {/* Interactive Footer CTA */}
+            <div className="pt-4 border-t border-bronze/25 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <p className="font-serif text-sm italic text-ocean-mid">
+                The expedition continues across the archipelago.
+              </p>
+              <button
+                onClick={() => setIsOpen(false)}
+                className="px-6 py-2.5 bg-ocean-dark text-parchment font-serif text-xs tracking-[0.25em] uppercase rounded-xs border border-bronze/50 hover:bg-ocean-mid transition-all shadow-md cursor-pointer"
+              >
+                Close & Chart Onward
+              </button>
+            </div>
+
+          </div>
+
         </div>
       </ScrollModal>
     </div>

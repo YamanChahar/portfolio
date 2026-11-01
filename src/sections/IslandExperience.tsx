@@ -128,21 +128,27 @@ export default function IslandExperience({ x, y }: { x: number, y: number }) {
           />
           
           {/* Sparks */}
-          {[...Array(5)].map((_, i) => (
+          {[
+            { id: 0, cx: 72, targetCx: 68, targetCy: 35, duration: 1.2, delay: 0.1 },
+            { id: 1, cx: 78, targetCx: 84, targetCy: 25, duration: 1.5, delay: 0.4 },
+            { id: 2, cx: 74, targetCx: 71, targetCy: 45, duration: 1.1, delay: 0.7 },
+            { id: 3, cx: 76, targetCx: 82, targetCy: 30, duration: 1.6, delay: 0.2 },
+            { id: 4, cx: 75, targetCx: 73, targetCy: 20, duration: 1.4, delay: 0.9 },
+          ].map(spark => (
             <motion.circle
-              key={`spark-${i}`}
+              key={`spark-${spark.id}`}
               r="2"
               fill="#ffcc00"
-              initial={{ opacity: 1, cx: 75 + (Math.random() * 20 - 10), cy: 100 }}
+              initial={{ opacity: 1, cx: spark.cx, cy: 100 }}
               animate={{ 
                 opacity: [1, 0],
-                cx: 75 + (Math.random() * 40 - 20),
-                cy: 20 + Math.random() * 40
+                cx: spark.targetCx,
+                cy: spark.targetCy
               }}
               transition={{
-                duration: 1 + Math.random(),
+                duration: spark.duration,
                 repeat: Infinity,
-                delay: Math.random() * 2
+                delay: spark.delay
               }}
             />
           ))}

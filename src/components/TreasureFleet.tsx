@@ -65,13 +65,13 @@ export default function TreasureFleet() {
         trigger: document.body,
         start: 'top top',
         end: 'bottom bottom',
-        scrub: 1.5,
+        scrub: 0.5,
         onUpdate: () => {
           const curX = gsap.getProperty(fleetCursorRef.current, 'x') as number
           const curY = gsap.getProperty(fleetCursorRef.current, 'y') as number
           const rotation = gsap.getProperty(fleetCursorRef.current, 'rotation') as number
           
-          // Move all undocked ships ultra-smoothly without React renders
+          // Move all undocked ships ultra-smoothly with GPU acceleration
           shipRefs.current.forEach((ship, index) => {
             if (ship && ship.dataset.docked !== "true") {
               const offsetX = Math.cos(index * 1.5) * 50
@@ -79,7 +79,8 @@ export default function TreasureFleet() {
               gsap.set(ship, {
                 x: curX + offsetX,
                 y: curY + offsetY,
-                rotation: rotation
+                rotation: rotation,
+                force3D: true
               })
             }
           })
