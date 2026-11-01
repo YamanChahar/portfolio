@@ -312,7 +312,7 @@ export default function IslandAbout({ x, y }: { x: number, y: number }) {
             {/* The Explorer's Manifesto (Bio) */}
             <div className="space-y-4 text-ocean-dark/90 leading-relaxed text-lg">
               <p className="first-letter:text-6xl first-letter:font-serif first-letter:font-bold first-letter:text-ocean-dark first-letter:mr-3.5 first-letter:float-left first-letter:leading-none">
-                Second-year Computer Science engineer at USICT (GGSIPU), charting courses through modern web engineering and interactive frontend architectures. A passionate builder who thrives at the intersection of precision code, dynamic state orchestration, and atmospheric visual storytelling.
+                Third-year Computer Science engineer at USICT (GGSIPU), charting courses through modern web engineering and interactive frontend architectures. A passionate builder who thrives at the intersection of precision code, dynamic state orchestration, and atmospheric visual storytelling.
               </p>
               {/* <p className="text-base text-ocean-mid/90 leading-relaxed">
                 Whether deciphering complex algorithmic challenges or crafting responsive, silky-smooth applications, my voyage is centered around creating digital vessels that are faster, cleaner, and more resilient than the last.
