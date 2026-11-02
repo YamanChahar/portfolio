@@ -12,7 +12,7 @@ import {
   GiShipWheel,
   GiSextant
 } from 'react-icons/gi'
-import { FaAward, FaQuoteLeft, FaBolt, FaDraftingCompass, FaEye } from 'react-icons/fa'
+import { FaAward, FaQuoteLeft, FaBolt, FaDraftingCompass, FaEye, FaFilePdf, FaExternalLinkAlt } from 'react-icons/fa'
 
 export default function IslandAbout({ x, y }: { x: number, y: number }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -304,6 +304,18 @@ export default function IslandAbout({ x, y }: { x: number, y: number }) {
               </div>
             </div>
 
+            {/* Official Resume Link */}
+            <a
+              href="/Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-1 w-full py-2.5 px-4 bg-ocean-dark hover:bg-ocean-mid text-parchment font-serif text-xs tracking-[0.2em] uppercase rounded-xs border border-bronze/50 flex items-center justify-center gap-2.5 transition-all shadow-md group cursor-pointer"
+            >
+              <FaFilePdf className="text-bronze group-hover:text-treasure-gold text-sm transition-colors" />
+              <span>Inspect Resume (PDF)</span>
+              <FaExternalLinkAlt className="text-[10px] opacity-70 group-hover:opacity-100" />
+            </a>
+
           </div>
 
           {/* ================= RIGHT COLUMN: EXPEDITION CHRONICLE ================= */}
@@ -525,12 +537,23 @@ export default function IslandAbout({ x, y }: { x: number, y: number }) {
               <p className="font-serif text-sm italic text-ocean-mid">
                 The expedition continues across the archipelago.
               </p>
-              <button
-                onClick={() => setIsOpen(false)}
-                className="px-6 py-2.5 bg-ocean-dark text-parchment font-serif text-xs tracking-[0.25em] uppercase rounded-xs border border-bronze/50 hover:bg-ocean-mid transition-all shadow-md cursor-pointer"
-              >
-                Close & Chart Onward
-              </button>
+              <div className="flex items-center gap-3">
+                <a
+                  href="/Resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-5 py-2.5 bg-parchment-dark/30 hover:bg-parchment-dark/60 text-ocean-dark font-serif text-xs tracking-[0.2em] uppercase rounded-xs border border-bronze/50 flex items-center gap-2 transition-all shadow-xs cursor-pointer"
+                >
+                  <FaFilePdf className="text-bronze" />
+                  View Resume
+                </a>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="px-6 py-2.5 bg-ocean-dark text-parchment font-serif text-xs tracking-[0.25em] uppercase rounded-xs border border-bronze/50 hover:bg-ocean-mid transition-all shadow-md cursor-pointer"
+                >
+                  Close & Chart Onward
+                </button>
+              </div>
             </div>
 
           </div>
