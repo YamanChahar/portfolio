@@ -1,18 +1,23 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { SiGithub } from 'react-icons/si'
-import { FaFilePdf, FaLinkedin } from 'react-icons/fa'
+import { FaFilePdf, FaLinkedin, FaDownload, FaExternalLinkAlt } from 'react-icons/fa'
 import { createPortal } from 'react-dom'
-export default function IslandContact({ x, y }: { x: number, y: number }) {
-  
+import ScrollModal from '../components/ScrollModal'
 
+const RESUME_DRIVE_URL = 'https://drive.google.com/file/d/1_ZjSbtaRZwiaiArE_KFdyaF7qviQbcW5/view?usp=sharing'
+const RESUME_PREVIEW_URL = 'https://drive.google.com/file/d/1_ZjSbtaRZwiaiArE_KFdyaF7qviQbcW5/preview'
+const RESUME_LOCAL_URL = '/resume.pdf?v=20261106'
+
+export default function IslandContact({ x, y }: { x: number, y: number }) {
   const [isOpen, setIsOpen] = useState(false)
   const [isDigging, setIsDigging] = useState(false)
+  const [isResumeOpen, setIsResumeOpen] = useState(false)
   const chestRef = useRef<HTMLDivElement>(null)
 
-  // Instantly close if the user scrolls at all while open
+  // Instantly close if the user scrolls at all while open, unless reading the resume modal
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && !isResumeOpen) {
       const handleScroll = () => {
         setIsOpen(false)
         setIsDigging(false)
@@ -24,7 +29,7 @@ export default function IslandContact({ x, y }: { x: number, y: number }) {
         window.removeEventListener('touchmove', handleScroll)
       }
     }
-  }, [isOpen])
+  }, [isOpen, isResumeOpen])
 
   const handleDig = () => {
     setIsDigging(true)
@@ -139,6 +144,7 @@ export default function IslandContact({ x, y }: { x: number, y: number }) {
         </div>
       )}
 
+      {/* Floating Relic Icons */}
       {createPortal(
         <AnimatePresence>
           {isOpen && (
@@ -149,26 +155,30 @@ export default function IslandContact({ x, y }: { x: number, y: number }) {
             >
               <div className="relative w-full h-full max-w-4xl max-h-[800px] pointer-events-auto">
                 {[
-                  { icon: SiGithub, link: 'https://github.com/YamanChahar', name: 'GitHub' },
-                  { icon: FaLinkedin, link: 'https://www.linkedin.com/in/yaman-chahar-ab4514320/', name: 'LinkedIn' },
-                 { icon: FaFilePdf, link: '/Resume.pdf', name: 'Resume' }
+                  { icon: SiGithub, link: 'https://github.com/YamanChahar', name: 'GitHub', isModal: false },
+                  { icon: FaLinkedin, link: 'https://www.linkedin.com/in/yaman-chahar-ab4514320/', name: 'LinkedIn', isModal: false },
+                  { icon: FaFilePdf, link: RESUME_DRIVE_URL, name: 'Resume', isModal: true }
                 ].map((social, i, arr) => {
-                  const angle = (i / arr.length) * Math.PI * 2 - Math.PI / 2 // Start at top
-                  const radius = 110 // Distance from center
+                  const angle = (i / arr.length) * Math.PI * 2 - Math.PI / 2
+                  const radius = 110
                   const destX = Math.cos(angle) * radius
                   const destY = Math.sin(angle) * radius
 
                   return (
-                    <motion.a
+                    <motion.div
                       key={i}
-                      href={social.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
                       initial={{ scale: 0, opacity: 0, x: 0, y: 0 }}
                       animate={{ scale: 1, opacity: 1, x: destX, y: destY }}
                       transition={{ type: 'spring', delay: 1.5 + i * 0.15, bounce: 0.3 }}
                       whileHover={{ scale: 1.1, zIndex: 50 }}
-                      className="absolute left-[50%] top-[50%] -ml-8 -mt-8 flex flex-col items-center gap-3 w-16"
+                      className="absolute left-[50%] top-[50%] -ml-8 -mt-8 flex flex-col items-center gap-3 w-16 cursor-pointer"
+                      onClick={() => {
+                        if (social.isModal) {
+                          setIsResumeOpen(true)
+                        } else {
+                          window.open(social.link, '_blank', 'noopener,noreferrer')
+                        }
+                      }}
                     >
                       <div className="w-16 h-16 bg-parchment border border-bronze/50 rounded-sm flex items-center justify-center shadow-lg transition-colors hover:bg-parchment-dark">
                         <social.icon size={28} className="text-ocean-dark opacity-80" />
@@ -176,7 +186,7 @@ export default function IslandContact({ x, y }: { x: number, y: number }) {
                       <span className="text-parchment font-sans tracking-[0.2em] uppercase text-xs opacity-90 drop-shadow-md whitespace-nowrap absolute top-full mt-3">
                         {social.name}
                       </span>
-                    </motion.a>
+                    </motion.div>
                   )
                 })}
               </div>
@@ -185,6 +195,73 @@ export default function IslandContact({ x, y }: { x: number, y: number }) {
         </AnimatePresence>,
         document.body
       )}
+
+      {/* Dedicated ScrollModal for Resume Viewing */}
+      <ScrollModal
+        isOpen={isResumeOpen}
+        onClose={() => setIsResumeOpen(false)}
+        mapLabel="Captain's Official Credentials"
+        title="Yaman Chahar"
+        subtitle="Resume & Engineering Record"
+      >
+        <div className="flex flex-col gap-6 font-sans text-ocean-dark">
+          {/* Action Header */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 bg-parchment-dark/20 border border-bronze/35 rounded-xs">
+            <div>
+              <span className="text-[10px] font-sans font-bold uppercase tracking-[0.25em] text-ocean-mid block">
+                Official Document
+              </span>
+              <p className="font-serif text-sm font-semibold text-ocean-dark">
+                Updated Curriculum Vitae (PDF)
+              </p>
+            </div>
+            
+            <div className="flex items-center gap-3">
+              <a
+                href={RESUME_LOCAL_URL}
+                download="Yaman_Chahar_Resume.pdf"
+                className="px-4 py-2 bg-ocean-dark hover:bg-ocean-mid text-parchment font-serif text-xs tracking-[0.15em] uppercase rounded-xs border border-bronze/50 flex items-center gap-2 transition-all shadow-sm cursor-pointer"
+              >
+                <FaDownload className="text-treasure-gold text-xs" />
+                Download PDF
+              </a>
+              <a
+                href={RESUME_DRIVE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2 bg-parchment-dark/30 hover:bg-parchment-dark/50 text-ocean-dark font-serif text-xs tracking-[0.15em] uppercase rounded-xs border border-bronze/40 flex items-center gap-2 transition-all shadow-sm cursor-pointer"
+              >
+                <FaExternalLinkAlt className="text-xs" />
+                Open Drive View
+              </a>
+            </div>
+          </div>
+
+          {/* Embedded Google Drive Preview / PDF Viewer */}
+          <div className="w-full bg-white rounded-xs border border-bronze/40 overflow-hidden shadow-inner h-[65vh]">
+            <iframe 
+              src={RESUME_PREVIEW_URL}
+              className="w-full h-full border-none"
+              title="Yaman Chahar Resume Preview"
+              allow="autoplay"
+            />
+          </div>
+
+          <div className="text-center pt-1">
+            <p className="text-xs text-ocean-mid/80 italic">
+              Having trouble viewing the embedded document?{' '}
+              <a 
+                href={RESUME_DRIVE_URL} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-ocean-dark font-bold underline hover:text-bronze"
+              >
+                Click here to open directly in Google Drive
+              </a>.
+            </p>
+          </div>
+        </div>
+      </ScrollModal>
     </div>
   )
 }

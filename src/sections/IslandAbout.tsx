@@ -306,7 +306,7 @@ export default function IslandAbout({ x, y }: { x: number, y: number }) {
 
             {/* Official Resume Link */}
             <a
-              href="/Resume.pdf"
+              href="https://drive.google.com/file/d/1_ZjSbtaRZwiaiArE_KFdyaF7qviQbcW5/view?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
               className="mt-1 w-full py-2.5 px-4 bg-ocean-dark hover:bg-ocean-mid text-parchment font-serif text-xs tracking-[0.2em] uppercase rounded-xs border border-bronze/50 flex items-center justify-center gap-2.5 transition-all shadow-md group cursor-pointer"
@@ -539,7 +539,7 @@ export default function IslandAbout({ x, y }: { x: number, y: number }) {
               </p>
               <div className="flex items-center gap-3">
                 <a
-                  href="/Resume.pdf"
+                  href="https://drive.google.com/file/d/1_ZjSbtaRZwiaiArE_KFdyaF7qviQbcW5/view?usp=sharing"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-5 py-2.5 bg-parchment-dark/30 hover:bg-parchment-dark/60 text-ocean-dark font-serif text-xs tracking-[0.2em] uppercase rounded-xs border border-bronze/50 flex items-center gap-2 transition-all shadow-xs cursor-pointer"
