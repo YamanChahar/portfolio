@@ -25,6 +25,8 @@ import {
   GiChest
 } from 'react-icons/gi'
 import ScrollModal from '../components/ScrollModal'
+import TiltCard from '../components/TiltCard'
+import MagneticButton from '../components/MagneticButton'
 
 interface ProjectData {
   id: number
@@ -261,91 +263,92 @@ export default function IslandProjects({ x, y }: { x: number, y: number }) {
         {PROJECTS.map((project, i) => {
           const BadgeIcon = project.badgeIcon
           return (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.8, delay: i * 0.2 }}
-              onClick={() => setActiveProject(project.id)}
-              className="group relative bg-[#1c222b]/95 border border-bronze/40 hover:border-treasure-gold rounded-xs shadow-2xl p-5 cursor-pointer overflow-hidden backdrop-blur-md transition-all duration-400 hover:-translate-y-2 hover:shadow-[0_0_35px_rgba(197,160,89,0.25)] flex flex-col justify-between min-h-[300px]"
-            >
-              {/* Ornate Ancient Corner Filigree */}
-              <div className="absolute top-0 left-0 w-3.5 h-3.5 border-t-2 border-l-2 border-bronze/60 group-hover:border-treasure-gold transition-colors duration-400 m-1.5 pointer-events-none" />
-              <div className="absolute top-0 right-0 w-3.5 h-3.5 border-t-2 border-r-2 border-bronze/60 group-hover:border-treasure-gold transition-colors duration-400 m-1.5 pointer-events-none" />
-              <div className="absolute bottom-0 left-0 w-3.5 h-3.5 border-b-2 border-l-2 border-bronze/60 group-hover:border-treasure-gold transition-colors duration-400 m-1.5 pointer-events-none" />
-              <div className="absolute bottom-0 right-0 w-3.5 h-3.5 border-b-2 border-r-2 border-bronze/60 group-hover:border-treasure-gold transition-colors duration-400 m-1.5 pointer-events-none" />
+            <TiltCard key={project.id} maxTilt={6} glareOpacity={0.16} className="h-full">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.8, delay: i * 0.2 }}
+                onClick={() => setActiveProject(project.id)}
+                className="group relative bg-[#1c222b]/95 border border-bronze/40 hover:border-treasure-gold rounded-xs shadow-2xl p-5 cursor-pointer overflow-hidden backdrop-blur-md transition-all duration-400 hover:-translate-y-1 hover:shadow-[0_0_35px_rgba(197,160,89,0.25)] flex flex-col justify-between min-h-[300px] h-full"
+              >
+                {/* Ornate Ancient Corner Filigree */}
+                <div className="absolute top-0 left-0 w-3.5 h-3.5 border-t-2 border-l-2 border-bronze/60 group-hover:border-treasure-gold transition-colors duration-400 m-1.5 pointer-events-none" />
+                <div className="absolute top-0 right-0 w-3.5 h-3.5 border-t-2 border-r-2 border-bronze/60 group-hover:border-treasure-gold transition-colors duration-400 m-1.5 pointer-events-none" />
+                <div className="absolute bottom-0 left-0 w-3.5 h-3.5 border-b-2 border-l-2 border-bronze/60 group-hover:border-treasure-gold transition-colors duration-400 m-1.5 pointer-events-none" />
+                <div className="absolute bottom-0 right-0 w-3.5 h-3.5 border-b-2 border-r-2 border-bronze/60 group-hover:border-treasure-gold transition-colors duration-400 m-1.5 pointer-events-none" />
 
-              {/* Ambient Golden Radial Hover Glow */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-15 transition-opacity duration-500 bg-[radial-gradient(circle_at_50%_0%,_var(--color-treasure-gold)_0%,_transparent_75%)] pointer-events-none" />
+                {/* Ambient Golden Radial Hover Glow */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-15 transition-opacity duration-500 bg-[radial-gradient(circle_at_50%_0%,_var(--color-treasure-gold)_0%,_transparent_75%)] pointer-events-none" />
 
-              {/* Card Header */}
-              <div className="relative z-10">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="inline-flex items-center gap-1.5 text-[9px] font-sans font-bold tracking-[0.25em] text-treasure-gold uppercase bg-ocean-dark/60 border border-bronze/40 px-2 py-0.5 rounded-xs">
-                    <BadgeIcon className="text-xs text-treasure-gold" />
-                    {project.relicNumber}
-                  </span>
-                  <span className="text-[10px] text-bronze/80 font-serif tracking-wider uppercase opacity-90">
-                    {project.type.split(' ')[0]}
-                  </span>
-                </div>
-
-                <div className="flex justify-between items-baseline mb-1">
-                  <h3 className="text-xl font-serif text-parchment group-hover:text-treasure-gold transition-colors duration-300">
-                    {project.name}
-                  </h3>
-                  <span className="text-treasure-gold opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ease-out text-xs">
-                    <FaExternalLinkAlt />
-                  </span>
-                </div>
-
-                <p className="text-[11px] font-sans italic text-parchment-dark/70 mb-3 line-clamp-1">
-                  {project.tagline}
-                </p>
-
-                {/* Short Snippet */}
-                <p className="text-xs text-parchment-dark/85 font-sans leading-relaxed line-clamp-2 mb-3">
-                  {project.shortSnippet}
-                </p>
-
-                {/* Highlight Feature Pills */}
-                <div className="flex flex-wrap gap-1.5 mb-3">
-                  {project.cardPills.map(pill => (
-                    <span 
-                      key={pill}
-                      className="text-[10px] px-2 py-0.5 rounded-xs bg-ocean-dark/70 border border-bronze/30 text-parchment/90 font-sans"
-                    >
-                      ✦ {pill}
+                {/* Card Header */}
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="inline-flex items-center gap-1.5 text-[9px] font-sans font-bold tracking-[0.25em] text-treasure-gold uppercase bg-ocean-dark/60 border border-bronze/40 px-2 py-0.5 rounded-xs">
+                      <BadgeIcon className="text-xs text-treasure-gold" />
+                      {project.relicNumber}
                     </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Card Footer: Tech Chips & CTA */}
-              <div className="relative z-10 pt-3 border-t border-bronze/20 mt-auto">
-                <div className="flex flex-wrap gap-1.5 mb-2.5">
-                  {project.techList.slice(0, 4).map(t => (
-                    <span 
-                      key={t} 
-                      className="text-[9px] px-2 py-0.5 rounded-xs bg-ocean-dark/50 border border-stone/40 text-parchment-dark/80 font-sans"
-                    >
-                      {t}
+                    <span className="text-[10px] text-bronze/80 font-serif tracking-wider uppercase opacity-90">
+                      {project.type.split(' ')[0]}
                     </span>
-                  ))}
-                  {project.techList.length > 4 && (
-                    <span className="text-[9px] px-1.5 py-0.5 rounded-xs bg-ocean-dark/50 border border-stone/40 text-bronze font-sans">
-                      +{project.techList.length - 4}
+                  </div>
+
+                  <div className="flex justify-between items-baseline mb-1">
+                    <h3 className="text-xl font-serif text-parchment group-hover:text-treasure-gold transition-colors duration-300">
+                      {project.name}
+                    </h3>
+                    <span className="text-treasure-gold opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ease-out text-xs">
+                      <FaExternalLinkAlt />
                     </span>
-                  )}
+                  </div>
+
+                  <p className="text-[11px] font-sans italic text-parchment-dark/70 mb-3 line-clamp-1">
+                    {project.tagline}
+                  </p>
+
+                  {/* Short Snippet */}
+                  <p className="text-xs text-parchment-dark/85 font-sans leading-relaxed line-clamp-2 mb-3">
+                    {project.shortSnippet}
+                  </p>
+
+                  {/* Highlight Feature Pills */}
+                  <div className="flex flex-wrap gap-1.5 mb-3">
+                    {project.cardPills.map(pill => (
+                      <span 
+                        key={pill}
+                        className="text-[10px] px-2 py-0.5 rounded-xs bg-ocean-dark/70 border border-bronze/30 text-parchment/90 font-sans"
+                      >
+                        ✦ {pill}
+                      </span>
+                    ))}
+                  </div>
                 </div>
 
-                <div className="flex items-center justify-between text-[11px] font-serif text-treasure-gold tracking-wider uppercase group-hover:text-parchment transition-colors">
-                  <span>Examine Logbook</span>
-                  <span className="group-hover:translate-x-1 transition-transform">→</span>
+                {/* Card Footer: Tech Chips & CTA */}
+                <div className="relative z-10 pt-3 border-t border-bronze/20 mt-auto">
+                  <div className="flex flex-wrap gap-1.5 mb-2.5">
+                    {project.techList.slice(0, 4).map(t => (
+                      <span 
+                        key={t} 
+                        className="text-[9px] px-2 py-0.5 rounded-xs bg-ocean-dark/50 border border-stone/40 text-parchment-dark/80 font-sans"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                    {project.techList.length > 4 && (
+                      <span className="text-[9px] px-1.5 py-0.5 rounded-xs bg-ocean-dark/50 border border-stone/40 text-bronze font-sans">
+                        +{project.techList.length - 4}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="flex items-center justify-between text-[11px] font-serif text-treasure-gold tracking-wider uppercase group-hover:text-parchment transition-colors">
+                    <span>Examine Logbook</span>
+                    <span className="group-hover:translate-x-1 transition-transform">→</span>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            </TiltCard>
           )
         })}
       </div>
@@ -380,25 +383,29 @@ export default function IslandProjects({ x, y }: { x: number, y: number }) {
 
               {/* Quick Action Links */}
               <div className="flex items-center gap-3">
-                <a
-                  href={selectedProject.liveDemo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-4 py-2 bg-ocean-dark hover:bg-ocean-mid text-parchment rounded-xs flex items-center gap-2 transition-all border border-bronze/50 font-serif tracking-[0.15em] uppercase text-xs shadow-sm cursor-pointer"
-                >
-                  <FaRocket className="text-treasure-gold text-xs" />
-                  Live Demo
-                  <FaExternalLinkAlt className="text-[10px] opacity-75" />
-                </a>
-                <a
-                  href={selectedProject.sourceCode}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-4 py-2 bg-parchment-dark/30 hover:bg-parchment-dark/50 text-ocean-dark rounded-xs flex items-center gap-2 transition-all border border-bronze/40 font-serif tracking-[0.15em] uppercase text-xs shadow-sm cursor-pointer"
-                >
-                  <SiGithub className="text-sm" />
-                  Source Code
-                </a>
+                <MagneticButton strength={0.25}>
+                  <a
+                    href={selectedProject.liveDemo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 bg-ocean-dark hover:bg-ocean-mid text-parchment rounded-xs flex items-center gap-2 transition-all border border-bronze/50 font-serif tracking-[0.15em] uppercase text-xs shadow-sm cursor-pointer"
+                  >
+                    <FaRocket className="text-treasure-gold text-xs" />
+                    Live Demo
+                    <FaExternalLinkAlt className="text-[10px] opacity-75" />
+                  </a>
+                </MagneticButton>
+                <MagneticButton strength={0.25}>
+                  <a
+                    href={selectedProject.sourceCode}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 bg-parchment-dark/30 hover:bg-parchment-dark/50 text-ocean-dark rounded-xs flex items-center gap-2 transition-all border border-bronze/40 font-serif tracking-[0.15em] uppercase text-xs shadow-sm cursor-pointer"
+                  >
+                    <SiGithub className="text-sm" />
+                    Source Code
+                  </a>
+                </MagneticButton>
               </div>
             </div>
 

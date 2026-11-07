@@ -1,12 +1,17 @@
 import { motion } from 'framer-motion'
 import Compass from '../components/Compass'
+import MagneticButton from '../components/MagneticButton'
 import { useLenis } from 'lenis/react'
 
 export default function IslandLanding({ x, y }: { x: number, y: number }) {
   const lenis = useLenis()
 
   const handleBeginJourney = () => {
-    lenis?.scrollTo(window.innerHeight, { duration: 1.5, easing: (t) => 1 - Math.pow(1 - t, 4) })
+    if (lenis) {
+      lenis.scrollTo(window.innerHeight, { duration: 1.5, easing: (t) => 1 - Math.pow(1 - t, 4) })
+    } else {
+      window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })
+    }
   }
 
   return (
@@ -110,20 +115,23 @@ export default function IslandLanding({ x, y }: { x: number, y: number }) {
           Software Engineer
         </motion.h3>
 
-        <motion.button
-          onClick={handleBeginJourney}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="mt-12 px-10 py-4 bg-transparent text-parchment font-serif text-lg tracking-widest uppercase transition-all flex items-center gap-4 group border border-bronze/50 hover:border-bronze hover:bg-bronze/10 backdrop-blur-sm"
-        >
-          Begin Journey
-          <motion.svg 
-            className="w-5 h-5 group-hover:translate-y-1 transition-transform text-treasure-gold" 
-            fill="none" viewBox="0 0 24 24" stroke="currentColor"
+        <MagneticButton strength={0.3} onClick={handleBeginJourney}>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="mt-12 px-10 py-4 bg-ocean-dark/60 text-parchment font-serif text-lg tracking-widest uppercase transition-all flex items-center gap-4 group border border-treasure-gold/50 hover:border-treasure-gold hover:shadow-[0_0_30px_rgba(197,160,89,0.35)] backdrop-blur-md rounded-full cursor-pointer relative overflow-hidden"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </motion.svg>
-        </motion.button>
+            {/* Shimmer gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-treasure-gold/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
+            <span className="relative z-10 font-medium">Begin Journey</span>
+            <motion.svg 
+              className="w-5 h-5 group-hover:translate-y-1 transition-transform text-treasure-gold relative z-10" 
+              fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </motion.svg>
+          </motion.div>
+        </MagneticButton>
       </div>
     </div>
   )

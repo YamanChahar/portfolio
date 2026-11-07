@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const QUESTIONS = [
@@ -9,7 +9,7 @@ const QUESTIONS = [
   "Which project are you most proud of?",
 ]
 
-export default function Companion() {
+function Companion() {
   const [isMinimized, setIsMinimized] = useState(false)
   const [isMuted, setIsMuted] = useState(true) // Start muted due to browser autoplay policies
   const [currentQuestion, setCurrentQuestion] = useState<string | null>(null)
@@ -156,3 +156,5 @@ export default function Companion() {
     </div>
   )
 }
+
+export default memo(Companion)

@@ -4,6 +4,7 @@ import { SiGithub } from 'react-icons/si'
 import { FaFilePdf, FaLinkedin, FaDownload, FaExternalLinkAlt } from 'react-icons/fa'
 import { createPortal } from 'react-dom'
 import ScrollModal from '../components/ScrollModal'
+import MagneticButton from '../components/MagneticButton'
 
 const RESUME_DRIVE_URL = 'https://drive.google.com/file/d/1_ZjSbtaRZwiaiArE_KFdyaF7qviQbcW5/view?usp=sharing'
 const RESUME_PREVIEW_URL = 'https://drive.google.com/file/d/1_ZjSbtaRZwiaiArE_KFdyaF7qviQbcW5/preview'
@@ -92,14 +93,15 @@ export default function IslandContact({ x, y }: { x: number, y: number }) {
           </motion.svg>
 
           {!isDigging && (
-            <motion.button
-              onClick={handleDig}
-              className="mt-8 bg-transparent text-parchment px-8 py-3 rounded-sm font-sans tracking-widest text-sm border border-bronze/50 transition-all hover:bg-bronze/10 uppercase"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Excavate
-            </motion.button>
+            <MagneticButton strength={0.3} onClick={handleDig}>
+              <motion.div
+                className="mt-8 bg-ocean-dark/70 text-parchment px-8 py-3 rounded-full font-serif tracking-widest text-sm border border-treasure-gold/50 transition-all hover:border-treasure-gold hover:shadow-[0_0_25px_rgba(197,160,89,0.35)] uppercase cursor-pointer backdrop-blur-sm"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Excavate
+              </motion.div>
+            </MagneticButton>
           )}
         </div>
       ) : (
@@ -217,23 +219,27 @@ export default function IslandContact({ x, y }: { x: number, y: number }) {
             </div>
             
             <div className="flex items-center gap-3">
-              <a
-                href={RESUME_LOCAL_URL}
-                download="Yaman_Chahar_Resume.pdf"
-                className="px-4 py-2 bg-ocean-dark hover:bg-ocean-mid text-parchment font-serif text-xs tracking-[0.15em] uppercase rounded-xs border border-bronze/50 flex items-center gap-2 transition-all shadow-sm cursor-pointer"
-              >
-                <FaDownload className="text-treasure-gold text-xs" />
-                Download PDF
-              </a>
-              <a
-                href={RESUME_DRIVE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 bg-parchment-dark/30 hover:bg-parchment-dark/50 text-ocean-dark font-serif text-xs tracking-[0.15em] uppercase rounded-xs border border-bronze/40 flex items-center gap-2 transition-all shadow-sm cursor-pointer"
-              >
-                <FaExternalLinkAlt className="text-xs" />
-                Open Drive View
-              </a>
+              <MagneticButton strength={0.25}>
+                <a
+                  href={RESUME_LOCAL_URL}
+                  download="Yaman_Chahar_Resume.pdf"
+                  className="px-4 py-2 bg-ocean-dark hover:bg-ocean-mid text-parchment font-serif text-xs tracking-[0.15em] uppercase rounded-xs border border-bronze/50 hover:border-treasure-gold flex items-center gap-2 transition-all shadow-sm cursor-pointer"
+                >
+                  <FaDownload className="text-treasure-gold text-xs" />
+                  Download PDF
+                </a>
+              </MagneticButton>
+              <MagneticButton strength={0.25}>
+                <a
+                  href={RESUME_DRIVE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2 bg-parchment-dark/30 hover:bg-parchment-dark/50 text-ocean-dark font-serif text-xs tracking-[0.15em] uppercase rounded-xs border border-bronze/40 hover:border-bronze flex items-center gap-2 transition-all shadow-sm cursor-pointer"
+                >
+                  <FaExternalLinkAlt className="text-xs" />
+                  Open Drive View
+                </a>
+              </MagneticButton>
             </div>
           </div>
 

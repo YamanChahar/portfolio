@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, memo } from 'react'
 import CameraController from './CameraController'
 import { ISLAND_COORDINATES, MAP_SIZE } from '../constants/islands'
 
@@ -22,7 +22,7 @@ import MessageInABottle from './MessageInABottle'
 import EasterEggs from './EasterEggs'
 import gsap from 'gsap'
 
-export default function MapScene() {
+function MapScene() {
   const mapRef = useRef<HTMLDivElement>(null)
   const foregroundRef = useRef<HTMLDivElement>(null)
 
@@ -96,3 +96,5 @@ export default function MapScene() {
     </div>
   )
 }
+
+export default memo(MapScene)

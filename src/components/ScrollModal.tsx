@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { createPortal } from 'react-dom'
+import MagneticButton from './MagneticButton'
 
 interface ScrollModalProps {
   isOpen: boolean
@@ -22,21 +23,25 @@ export default function ScrollModal({ isOpen, onClose, title, subtitle, mapLabel
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.4 }}
+          transition={{ duration: 0.35 }}
           className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-8"
           style={{ perspective: 2000 }}
         >
+          {/* Deep oceanic blurred backdrop with vignette */}
           <div
-            className="absolute inset-0 bg-ocean-dark/95 backdrop-blur-md"
+            className="absolute inset-0 backdrop-blur-md cursor-pointer"
+            style={{
+              background: 'radial-gradient(ellipse at center, rgba(11, 22, 44, 0.88) 0%, rgba(4, 9, 18, 0.98) 100%)'
+            }}
             onClick={onClose}
           />
           
           <motion.div
-            initial={{ scaleY: 0.05, opacity: 0, rotateX: 10 }}
-            animate={{ scaleY: 1, opacity: 1, rotateX: 0 }}
-            exit={{ scaleY: 0.05, opacity: 0, rotateX: 10 }}
-            transition={{ type: "spring", bounce: 0.2, duration: 0.8 }}
-            className={`relative w-full max-w-5xl bg-parchment rounded-sm shadow-[0_30px_60px_rgba(0,0,0,0.5),inset_0_0_100px_rgba(139,115,85,0.15)] border border-bronze overflow-hidden flex flex-col z-10 origin-center ${className}`}
+            initial={{ scaleY: 0.05, opacity: 0, scaleX: 0.95 }}
+            animate={{ scaleY: 1, opacity: 1, scaleX: 1 }}
+            exit={{ scaleY: 0.05, opacity: 0, scaleX: 0.95 }}
+            transition={{ type: "spring", bounce: 0.2, duration: 0.7 }}
+            className={`relative w-full max-w-5xl bg-parchment rounded-sm shadow-[0_35px_80px_rgba(0,0,0,0.6),0_0_60px_rgba(197,160,89,0.18),inset_0_0_100px_rgba(139,115,85,0.18)] border border-bronze/80 overflow-hidden flex flex-col z-10 origin-center ${className}`}
             style={{
               backgroundImage: `url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E")`
             }}
@@ -67,12 +72,17 @@ export default function ScrollModal({ isOpen, onClose, title, subtitle, mapLabel
             <div className="absolute top-0 left-0 w-12 h-full bg-gradient-to-r from-ocean-dark/10 via-ocean-dark/5 to-transparent pointer-events-none" />
             <div className="absolute top-0 right-0 w-12 h-full bg-gradient-to-l from-ocean-dark/10 via-ocean-dark/5 to-transparent pointer-events-none" />
 
-            <button
-              className="absolute top-4 right-4 md:top-6 md:right-8 text-3xl font-serif text-ocean-mid hover:text-ocean-dark transition-colors z-50 w-10 h-10 flex items-center justify-center bg-parchment/80 md:bg-transparent rounded-full backdrop-blur-sm md:backdrop-blur-none"
-              onClick={onClose}
-            >
-              &times;
-            </button>
+            {/* Magnetic Close Button */}
+            <div className="absolute top-3 right-3 md:top-5 md:right-7 z-50">
+              <MagneticButton strength={0.3} onClick={onClose} aria-label="Close Scroll">
+                <button
+                  type="button"
+                  className="w-10 h-10 flex items-center justify-center rounded-full bg-parchment-dark/60 hover:bg-ocean-dark text-ocean-dark hover:text-parchment border border-bronze/50 hover:border-treasure-gold transition-all duration-300 shadow-md group cursor-pointer"
+                >
+                  <span className="text-2xl font-serif leading-none group-hover:rotate-90 transition-transform duration-300">&times;</span>
+                </button>
+              </MagneticButton>
+            </div>
 
             <div 
               className="relative w-full h-full max-h-[85vh] overflow-y-auto flex flex-col p-8 md:p-14 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-bronze/30 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-bronze/60 custom-scrollbar"

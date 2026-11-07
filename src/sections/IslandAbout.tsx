@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import ScrollModal from '../components/ScrollModal'
+import MagneticButton from '../components/MagneticButton'
 import { 
   GiCompass, 
   GiScrollQuill, 
@@ -305,16 +306,20 @@ export default function IslandAbout({ x, y }: { x: number, y: number }) {
             </div>
 
             {/* Official Resume Link */}
-            <a
-              href="https://drive.google.com/file/d/1_ZjSbtaRZwiaiArE_KFdyaF7qviQbcW5/view?usp=sharing"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-1 w-full py-2.5 px-4 bg-ocean-dark hover:bg-ocean-mid text-parchment font-serif text-xs tracking-[0.2em] uppercase rounded-xs border border-bronze/50 flex items-center justify-center gap-2.5 transition-all shadow-md group cursor-pointer"
-            >
-              <FaFilePdf className="text-bronze group-hover:text-treasure-gold text-sm transition-colors" />
-              <span>Inspect Resume (PDF)</span>
-              <FaExternalLinkAlt className="text-[10px] opacity-70 group-hover:opacity-100" />
-            </a>
+            <div className="w-full flex justify-center">
+              <MagneticButton strength={0.25} className="w-full">
+                <a
+                  href="https://drive.google.com/file/d/1_ZjSbtaRZwiaiArE_KFdyaF7qviQbcW5/view?usp=sharing"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-1 w-full py-2.5 px-4 bg-ocean-dark hover:bg-ocean-mid text-parchment font-serif text-xs tracking-[0.2em] uppercase rounded-xs border border-bronze/50 hover:border-treasure-gold flex items-center justify-center gap-2.5 transition-all shadow-md group cursor-pointer"
+                >
+                  <FaFilePdf className="text-bronze group-hover:text-treasure-gold text-sm transition-colors" />
+                  <span>Inspect Resume (PDF)</span>
+                  <FaExternalLinkAlt className="text-[10px] opacity-70 group-hover:opacity-100" />
+                </a>
+              </MagneticButton>
+            </div>
 
           </div>
 

@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import ScrollModal from '../components/ScrollModal'
+import MagneticButton from '../components/MagneticButton'
+import TiltCard from '../components/TiltCard'
 import {
   SiReact,
   SiTailwindcss,
@@ -199,16 +201,19 @@ export default function IslandSkills({ x, y }: { x: number; y: number }) {
       </div>
 
       {/* Interactive Anvil Button (Inspect Full Arsenal) */}
-      <motion.button
-        onClick={() => setIsModalOpen(true)}
-        whileHover={{ scale: 1.08 }}
-        whileTap={{ scale: 0.95 }}
-        className="absolute top-[395px] z-20 px-4 py-1.5 bg-ocean-dark/90 hover:bg-ocean-mid text-parchment font-serif text-[11px] tracking-[0.2em] uppercase rounded-xs border border-bronze/50 shadow-md flex items-center gap-2 cursor-pointer transition-all"
-        title="Open Full Technical Skills Dossier"
-      >
-        <FaLayerGroup className="text-treasure-gold text-xs" />
-        <span>Inspect Arsenal</span>
-      </motion.button>
+      <div className="absolute top-[395px] z-20">
+        <MagneticButton strength={0.3} onClick={() => setIsModalOpen(true)}>
+          <motion.div
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.95 }}
+            className="px-4 py-1.5 bg-ocean-dark/90 hover:bg-ocean-mid text-parchment font-serif text-[11px] tracking-[0.2em] uppercase rounded-xs border border-bronze/50 hover:border-treasure-gold hover:shadow-[0_0_20px_rgba(197,160,89,0.3)] shadow-md flex items-center gap-2 cursor-pointer transition-all"
+            title="Open Full Technical Skills Dossier"
+          >
+            <FaLayerGroup className="text-treasure-gold text-xs" />
+            <span>Inspect Arsenal</span>
+          </motion.div>
+        </MagneticButton>
+      </div>
 
       {/* 12 Orbiting Featured Skills */}
       <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
@@ -302,48 +307,49 @@ export default function IslandSkills({ x, y }: { x: number; y: number }) {
             {SKILL_CATEGORIES.map((cat) => {
               const Icon = cat.icon
               return (
-                <div
-                  key={cat.title}
-                  className="bg-parchment-dark/15 border border-bronze/35 p-5 rounded-xs shadow-xs flex flex-col hover:border-bronze/60 transition-colors"
-                >
-                  {/* Category Header */}
-                  <div className="flex items-center justify-between gap-3 pb-3 mb-4 border-b border-bronze/25">
-                    <div className="flex items-center gap-2.5">
-                      <Icon className="text-bronze text-base" />
-                      <h4 className="font-serif text-sm font-bold text-ocean-dark tracking-wide">
-                        {cat.title}
-                      </h4>
+                <TiltCard key={cat.title} maxTilt={3} glareOpacity={0.08} className="h-full">
+                  <div
+                    className="bg-parchment-dark/15 border border-bronze/35 p-5 rounded-xs shadow-xs flex flex-col hover:border-bronze/60 transition-colors h-full"
+                  >
+                    {/* Category Header */}
+                    <div className="flex items-center justify-between gap-3 pb-3 mb-4 border-b border-bronze/25">
+                      <div className="flex items-center gap-2.5">
+                        <Icon className="text-bronze text-base" />
+                        <h4 className="font-serif text-sm font-bold text-ocean-dark tracking-wide">
+                          {cat.title}
+                        </h4>
+                      </div>
+                      <span className="text-[9px] font-sans font-semibold uppercase tracking-[0.2em] px-2 py-0.5 bg-parchment-dark/40 border border-bronze/30 text-ocean-mid rounded-xs">
+                        {cat.badge}
+                      </span>
                     </div>
-                    <span className="text-[9px] font-sans font-semibold uppercase tracking-[0.2em] px-2 py-0.5 bg-parchment-dark/40 border border-bronze/30 text-ocean-mid rounded-xs">
-                      {cat.badge}
-                    </span>
-                  </div>
 
-                  {/* Skills Badges */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 flex-1">
-                    {cat.skills.map((s) => {
-                      const SIcon = s.icon
-                      return (
-                        <div
-                          key={s.name}
-                          className="flex items-center gap-2.5 p-2 bg-parchment border border-bronze/30 rounded-xs shadow-2xs hover:border-bronze hover:shadow-xs transition-all group"
-                        >
-                          <div className="w-8 h-8 rounded-xs bg-ocean-dark/90 text-parchment flex items-center justify-center shrink-0 group-hover:bg-ocean-dark group-hover:text-treasure-gold transition-colors">
-                            <SIcon className="text-sm" />
+                    {/* Skills Badges */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 flex-1">
+                      {cat.skills.map((s) => {
+                        const SIcon = s.icon
+                        return (
+                          <div
+                            key={s.name}
+                            className="flex items-center gap-2.5 p-2 bg-parchment border border-bronze/30 rounded-xs shadow-2xs hover:border-bronze hover:shadow-xs transition-all group"
+                          >
+                            <div className="w-8 h-8 rounded-xs bg-ocean-dark/90 text-parchment flex items-center justify-center shrink-0 group-hover:bg-ocean-dark group-hover:text-treasure-gold transition-colors">
+                              <SIcon className="text-sm" />
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              <p className="font-serif text-xs font-bold text-ocean-dark truncate group-hover:text-ocean-mid transition-colors">
+                                {s.name}
+                              </p>
+                              <p className="text-[10px] text-ocean-mid font-sans truncate opacity-85">
+                                {s.note}
+                              </p>
+                            </div>
                           </div>
-                          <div className="min-w-0 flex-1">
-                            <p className="font-serif text-xs font-bold text-ocean-dark truncate group-hover:text-ocean-mid transition-colors">
-                              {s.name}
-                            </p>
-                            <p className="text-[10px] text-ocean-mid font-sans truncate opacity-85">
-                              {s.note}
-                            </p>
-                          </div>
-                        </div>
-                      )
-                    })}
+                        )
+                      })}
+                    </div>
                   </div>
-                </div>
+                </TiltCard>
               )
             })}
           </div>
@@ -353,12 +359,14 @@ export default function IslandSkills({ x, y }: { x: number; y: number }) {
             <p>
               Integrated across production platforms: AICTE Smart Farming, MediStock, & Web Architectures.
             </p>
-            <button
-              onClick={() => setIsModalOpen(false)}
-              className="px-5 py-2 bg-ocean-dark hover:bg-ocean-mid text-parchment font-serif text-xs tracking-[0.15em] uppercase rounded-xs border border-bronze/50 transition-all cursor-pointer shadow-sm"
-            >
-              Close Arsenal
-            </button>
+            <MagneticButton strength={0.25}>
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="px-5 py-2 bg-ocean-dark hover:bg-ocean-mid text-parchment font-serif text-xs tracking-[0.15em] uppercase rounded-xs border border-bronze/50 hover:border-treasure-gold transition-all cursor-pointer shadow-sm"
+              >
+                Close Arsenal
+              </button>
+            </MagneticButton>
           </div>
         </div>
       </ScrollModal>
