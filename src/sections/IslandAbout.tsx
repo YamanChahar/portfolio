@@ -475,10 +475,10 @@ export default function IslandAbout({ x, y }: { x: number, y: number }) {
                 {/* Category 1 */}
                 <div>
                   <span className="text-[10px] font-sans font-bold uppercase tracking-[0.25em] text-bronze block mb-2">
-                    Deck & Sails (Frontend Craft)
+                    Deck & Sails (Frontend & Mobile Craft)
                   </span>
                   <div className="flex flex-wrap gap-2 text-xs">
-                    {['React.js', 'TypeScript', 'Tailwind CSS', 'Next.js', 'Framer Motion', 'HTML5 / Modern CSS', 'Responsive UI'].map((skill) => (
+                    {['React.js', 'React Native', 'JavaScript (ES6+)', 'Tailwind CSS', 'HTML5', 'CSS3', 'Expo EAS', 'Responsive UI'].map((skill) => (
                       <span key={skill} className="px-3 py-1 bg-parchment border border-bronze/35 text-ocean-dark rounded-xs font-serif font-medium shadow-xs">
                         {skill}
                       </span>
@@ -489,10 +489,10 @@ export default function IslandAbout({ x, y }: { x: number, y: number }) {
                 {/* Category 2 */}
                 <div>
                   <span className="text-[10px] font-sans font-bold uppercase tracking-[0.25em] text-bronze block mb-2">
-                    Engine Room & Holds (Backend & Data)
+                    Engine Room & Holds (Backend, AI & Data)
                   </span>
                   <div className="flex flex-wrap gap-2 text-xs">
-                    {['Node.js', 'Express.js', 'MongoDB', 'REST APIs', 'JWT Authentication', 'Socket.io'].map((skill) => (
+                    {['Node.js', 'Express.js', 'Python', 'FastAPI', 'MongoDB', 'RESTful APIs', 'JWT & RBAC', 'Socket.IO'].map((skill) => (
                       <span key={skill} className="px-3 py-1 bg-parchment border border-bronze/35 text-ocean-dark rounded-xs font-serif font-medium shadow-xs">
                         {skill}
                       </span>
@@ -503,10 +503,10 @@ export default function IslandAbout({ x, y }: { x: number, y: number }) {
                 {/* Category 3 */}
                 <div>
                   <span className="text-[10px] font-sans font-bold uppercase tracking-[0.25em] text-bronze block mb-2">
-                    Navigational Rigging (Workflow & Tools)
+                    Navigational Rigging (DevOps, Systems & Tools)
                   </span>
                   <div className="flex flex-wrap gap-2 text-xs">
-                    {['Git / GitHub', 'Vite', 'Postman', 'Figma Prototyping', 'Vercel Deployment', 'VS Code'].map((skill) => (
+                    {['Docker', 'Git / GitHub', 'GitHub Actions', 'Vercel', 'Render', 'C / C++', 'VS Code', 'Figma'].map((skill) => (
                       <span key={skill} className="px-3 py-1 bg-parchment border border-bronze/35 text-ocean-dark rounded-xs font-serif font-medium shadow-xs">
                         {skill}
                       </span>
