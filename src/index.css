@@ -15,9 +15,9 @@
   --color-treasure-gold: #c5a059;
   --color-bronze: #b08d57;
   
-  --color-island-base: #2a4a31;
-  --color-island-highlight: #3b6143;
-  --color-island-dirt: #4a3320;
+  --color-island-base: #1b3d22;
+  --color-island-highlight: #285430;
+  --color-island-dirt: #8b5a2b;
   
   --color-stone: #4a4e54;
   --color-stone-dark: #33373d;
@@ -87,27 +87,53 @@
 
 .anim-wave {
   animation: waveBob 6s ease-in-out infinite;
-  will-change: transform;
 }
 
 .anim-map-bob {
   animation: mapBob 4s ease-in-out infinite;
-  will-change: transform;
 }
 
 .anim-map-sway {
   animation: mapSway 5s ease-in-out infinite;
-  will-change: transform;
 }
 
 .anim-fish {
   animation: fishSwim 6s ease-in-out infinite;
-  will-change: transform;
 }
 
 .anim-wing {
   animation: wingFlap 0.6s ease-in-out infinite;
   transform-origin: center;
+}
+
+@keyframes flagFlutter {
+  0%, 100% { transform: scaleX(1) skewY(0deg); }
+  50% { transform: scaleX(0.92) skewY(3.5deg); }
+}
+
+.anim-flag {
+  animation: flagFlutter 2.5s ease-in-out infinite;
+  transform-origin: 12px 25px;
+}
+
+@keyframes flamePulse {
+  0%, 100% { transform: scale(1); opacity: 0.95; }
+  50% { transform: scale(1.05, 0.96); opacity: 0.85; }
+}
+
+.anim-flame {
+  animation: flamePulse 1.2s ease-in-out infinite;
+  transform-origin: 75px 110px;
+}
+
+@keyframes hammerSwing {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-35deg); }
+}
+
+.anim-hammer {
+  animation: hammerSwing 2.2s ease-in-out infinite;
+  transform-origin: bottom right;
 }
 
 /* Aurora & Mesh Gradient Breathing Animations */
@@ -128,17 +154,14 @@
 
 .animate-aurora-slow {
   animation: auroraSlow 16s ease-in-out infinite;
-  will-change: transform;
 }
 
 .animate-aurora-delayed {
   animation: auroraDelayed 19s ease-in-out infinite 3s;
-  will-change: transform;
 }
 
 .animate-aurora-drift {
   animation: auroraDrift 22s ease-in-out infinite 5s;
-  will-change: transform;
 }
 
 /* Reduced Motion Override for Accessibility */

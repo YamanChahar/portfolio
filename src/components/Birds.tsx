@@ -2,16 +2,15 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { MAP_SIZE } from '../constants/islands'
 
-const BIRD_DATA = Array.from({ length: 14 }).map((_, i) => ({
+const BIRD_DATA = Array.from({ length: 6 }).map((_, i) => ({
   id: `bird-${i}`,
-  x: (i * 280) % MAP_SIZE.width,
-  y: 300 + ((i * 380) % (MAP_SIZE.height - 600)),
+  x: (i * 650) % MAP_SIZE.width,
+  y: 350 + ((i * 580) % (MAP_SIZE.height - 700)),
   scale: 0.18 + ((i * 13) % 10) * 0.015,
 }))
 
 const DOLPHIN_DATA = [
   { id: 'dolphin-0', x: 1600, y: 2200, scale: 0.4 },
-  { id: 'dolphin-1', x: 2600, y: 900, scale: 0.35 },
 ]
 
 export default function Birds() {

@@ -43,7 +43,7 @@ export default function IslandContact({ x, y }: { x: number, y: number }) {
   return (
     <div 
       className="absolute transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center w-[600px] h-[600px] pointer-events-auto"
-      style={{ left: x, top: y }}
+      style={{ left: x, top: y, contentVisibility: 'auto', containIntrinsicSize: '600px 600px' }}
     >
       <svg className="absolute inset-0 w-full h-full pointer-events-none drop-shadow-2xl opacity-90" viewBox="0 0 600 600">
         <path 
@@ -124,21 +124,14 @@ export default function IslandContact({ x, y }: { x: number, y: number }) {
             </svg>
 
             {/* Subtle Emitting Particles (Dust/Glow) */}
-            {Array.from({ length: 15 }).map((_, i) => (
-              <motion.div
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div
                 key={`dust-${i}`}
-                className="absolute w-1 h-1 bg-bronze rounded-full"
-                style={{ top: 70, left: 100 }}
-                animate={{
-                  x: (Math.random() - 0.5) * 200,
-                  y: -Math.random() * 200 - 20,
-                  opacity: [0, 0.6, 0],
-                  scale: [1, 2]
-                }}
-                transition={{
-                  duration: 2 + Math.random() * 3,
-                  repeat: Infinity,
-                  ease: "easeOut"
+                className="absolute w-1.5 h-1.5 bg-treasure-gold rounded-full animate-pulse"
+                style={{ 
+                  top: 60 + ((i % 2) * 20), 
+                  left: 80 + (i * 15),
+                  animationDuration: `${1.5 + i * 0.5}s`
                 }}
               />
             ))}

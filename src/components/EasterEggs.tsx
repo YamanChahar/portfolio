@@ -55,10 +55,8 @@ export default function EasterEggs() {
     <>
       {/* 1. The Kraken Tentacle (Deep ocean SE) */}
       <div className="absolute top-[3500px] left-[3500px] z-20 pointer-events-auto">
-        <motion.div
-          animate={{ y: [0, -40, 0], rotate: [-10, 10, -10] }}
-          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-          className="cursor-pointer group relative"
+        <div
+          className="cursor-pointer group relative anim-map-bob"
           onClick={() => setActiveSecret('kraken')}
         >
           {/* Subtle glow on hover */}
@@ -72,15 +70,13 @@ export default function EasterEggs() {
             <circle cx="40" cy="55" r="4" fill="#8cb3a1" />
             <circle cx="35" cy="70" r="3" fill="#8cb3a1" />
           </svg>
-        </motion.div>
+        </div>
       </div>
 
       {/* 2. The Ghost Ship (Foggy NW ocean) */}
       <div className="absolute top-[500px] left-[500px] z-20 pointer-events-auto">
-        <motion.div
-          animate={{ y: [-10, 10, -10], x: [-20, 20, -20] }}
-          transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
-          className="cursor-pointer group relative opacity-10 hover:opacity-80 transition-opacity duration-1000"
+        <div
+          className="cursor-pointer group relative opacity-10 hover:opacity-80 transition-opacity duration-1000 anim-map-sway"
           onClick={() => setActiveSecret('ghost')}
         >
           {/* Ghost Ship SVG */}
@@ -90,24 +86,15 @@ export default function EasterEggs() {
             <path d="M 40 15 L 65 35 L 40 50 Z" fill="#a0cfb5" opacity="0.4" />
             <path d="M 40 25 L 20 40 L 40 55 Z" fill="#a0cfb5" opacity="0.4" />
           </svg>
-        </motion.div>
+        </div>
       </div>
 
       {/* 3. The Golden Crab (Contact Island Beach) */}
       <div className="absolute top-[550px] left-[2150px] z-30 pointer-events-auto">
-        <motion.div
-  animate={{
-    x: [0, 20, 20, -10, -10, 0],
-  }}
-  transition={{
-    duration: 6,
-    repeat: Infinity,
-    times: [0, 0.2, 0.4, 0.6, 0.8, 1],
-    ease: "linear",
-  }}
-  className="cursor-pointer group relative"
-  onClick={() => setActiveSecret("crab")}
->
+        <div
+          className="cursor-pointer group relative anim-map-bob"
+          onClick={() => setActiveSecret("crab")}
+        >
           {/* Tiny Golden Crab SVG */}
           <svg width="24" height="24" viewBox="0 0 20 20" className="drop-shadow-[0_0_5px_rgba(255,215,0,0.8)]">
             <ellipse cx="10" cy="10" rx="6" ry="4" fill="var(--color-treasure-gold)" />
@@ -118,7 +105,7 @@ export default function EasterEggs() {
             <line x1="5" y1="12" x2="2" y2="15" stroke="var(--color-treasure-gold)" strokeWidth="1" />
             <line x1="15" y1="12" x2="18" y2="15" stroke="var(--color-treasure-gold)" strokeWidth="1" />
           </svg>
-        </motion.div>
+        </div>
       </div>
 
       {activeSecret === 'kraken' && (

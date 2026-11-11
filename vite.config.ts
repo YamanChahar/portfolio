@@ -31,4 +31,30 @@ export default defineConfig({
       }
     }
   ],
+  build: {
+    chunkSizeWarningLimit: 600,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('three')) {
+              return 'vendor-three'
+            }
+            if (id.includes('gsap')) {
+              return 'vendor-gsap'
+            }
+            if (id.includes('framer-motion')) {
+              return 'vendor-framer'
+            }
+            if (id.includes('react-icons')) {
+              return 'vendor-icons'
+            }
+            if (id.includes('react') || id.includes('react-dom') || id.includes('scheduler')) {
+              return 'vendor-react'
+            }
+          }
+        }
+      }
+    }
+  }
 })

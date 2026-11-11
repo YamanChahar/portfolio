@@ -8,13 +8,8 @@ export default function MessageInABottle() {
   return (
     <>
       <div className="absolute top-[4000px] left-[1200px] z-20 pointer-events-auto">
-        <motion.div
-          animate={{
-            y: [-5, 5, -5],
-            rotate: [-10, 10, -10],
-          }}
-          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-          className="cursor-pointer group relative"
+        <div
+          className="cursor-pointer group relative anim-map-bob"
           onClick={() => setIsOpen(true)}
         >
           {/* Subtle glow on hover */}
@@ -29,7 +24,7 @@ export default function MessageInABottle() {
             <path d="M 12 15 L 18 15 L 17 35 L 13 35 Z" fill="#f4e4bc" opacity="0.9" />
             <path d="M 14 18 L 16 18 M 14 22 L 16 22 M 14 26 L 16 26" stroke="#8b4513" strokeWidth="0.5" />
           </svg>
-        </motion.div>
+        </div>
       </div>
 
       {createPortal(

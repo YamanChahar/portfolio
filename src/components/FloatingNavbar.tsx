@@ -1,15 +1,17 @@
 import { memo } from 'react'
 import { motion } from 'framer-motion'
+import { FaFilm } from 'react-icons/fa6'
 import { ISLAND_COORDINATES } from '../constants/islands'
 
 interface FloatingNavbarProps {
   activeIndex: number
   onNavigate: (index: number) => void
+  onReplayIntro?: () => void
 }
 
 const ROMAN_NUMERALS = ['I', 'II', 'III', 'IV', 'V', 'VI']
 
-function FloatingNavbar({ activeIndex, onNavigate }: FloatingNavbarProps) {
+function FloatingNavbar({ activeIndex, onNavigate, onReplayIntro }: FloatingNavbarProps) {
   return (
     <nav 
       aria-label="Expedition Navigation"
@@ -71,6 +73,23 @@ function FloatingNavbar({ activeIndex, onNavigate }: FloatingNavbarProps) {
             </button>
           )
         })}
+
+        {/* Replay Grand Arrival Cinematic Button */}
+        {onReplayIntro && (
+          <>
+            <div className="w-[1px] h-4 bg-treasure-gold/25 mx-0.5 hidden sm:block" />
+            <button
+              onClick={onReplayIntro}
+              title="Replay Grand Arrival Cinematic Intro"
+              className="relative px-2 sm:px-3 py-1.5 rounded-full text-xs font-serif text-treasure-gold/80 hover:text-treasure-gold hover:bg-treasure-gold/15 transition-all duration-200 flex items-center gap-1.5 group select-none cursor-pointer border border-transparent hover:border-treasure-gold/30"
+            >
+              <FaFilm className="text-[10px] sm:text-xs text-treasure-gold group-hover:scale-110 transition-transform" />
+              <span className="hidden md:inline text-[11px] font-sans tracking-widest uppercase">
+                Intro
+              </span>
+            </button>
+          </>
+        )}
       </div>
     </nav>
   )

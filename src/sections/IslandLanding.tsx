@@ -17,10 +17,63 @@ export default function IslandLanding({ x, y }: { x: number, y: number }) {
   return (
     <div 
       className="absolute transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center w-[600px] h-[600px] pointer-events-auto"
-      style={{ left: x, top: y }}
+      style={{ left: x, top: y, contentVisibility: 'auto', containIntrinsicSize: '600px 600px' }}
     >
-      {/* Intricate Island base SVG - Vintage Style */}
-      <svg className="absolute inset-0 w-full h-full pointer-events-none drop-shadow-2xl opacity-90" viewBox="0 0 600 600">
+      {/* Intricate Island base SVG - Vintage Style with Lush Tropical Trees & Leaves */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none drop-shadow-2xl opacity-95" viewBox="0 0 600 600">
+        <defs>
+          {/* Reusable Master Palm Tree - Dark Green Island Type */}
+          <g id="island-palm-tree">
+            {/* Rich Warm Brown Stem / Trunk with Bark Rings */}
+            <path d="M 0 0 Q 5 35 14 70" fill="none" stroke="#92400e" strokeWidth="6" strokeLinecap="round" />
+            <path d="M 0 0 Q 5 35 14 70" fill="none" stroke="#78350f" strokeWidth="2.8" strokeLinecap="round" />
+            <path d="M 2 16 Q 6 18 9 17" stroke="#451a03" strokeWidth="1.6" />
+            <path d="M 4 34 Q 8 36 11 35" stroke="#451a03" strokeWidth="1.6" />
+            <path d="M 7 50 Q 11 52 14 51" stroke="#451a03" strokeWidth="1.6" />
+            <circle cx="14" cy="70" r="4.5" fill="#5e2b07" />
+
+            {/* Symmetrically Uniform Dark Green Island Fronds Crown */}
+            <g transform="translate(0, 0)">
+              {/* Lower Tier Outer Branches */}
+              <path d="M 0 0 Q -24 -16 -36 -4 Q -22 -2 0 0" fill="#1b4d24" stroke="#0f2b14" strokeWidth="0.8" />
+              <path d="M 0 0 Q 24 -16 36 -4 Q 22 -2 0 0" fill="#1b4d24" stroke="#0f2b14" strokeWidth="0.8" />
+              <path d="M 0 0 Q -28 -6 -38 14 Q -22 6 0 0" fill="#164320" stroke="#0f2b14" strokeWidth="0.8" />
+              <path d="M 0 0 Q 28 -6 38 14 Q 22 6 0 0" fill="#164320" stroke="#0f2b14" strokeWidth="0.8" />
+              <path d="M 0 0 Q -18 12 -28 26 Q -14 14 0 0" fill="#1b4d24" stroke="#0f2b14" strokeWidth="0.8" />
+              <path d="M 0 0 Q 18 12 28 26 Q 14 14 0 0" fill="#1b4d24" stroke="#0f2b14" strokeWidth="0.8" />
+              {/* Upper Tier Central Branches */}
+              <path d="M 0 0 Q -15 -24 -22 -32 Q -10 -18 0 0" fill="#20592b" stroke="#0f2b14" strokeWidth="0.8" />
+              <path d="M 0 0 Q 15 -24 22 -32 Q 10 -18 0 0" fill="#20592b" stroke="#0f2b14" strokeWidth="0.8" />
+              <path d="M 0 0 Q 0 -28 0 -36 Q 4 -18 0 0" fill="#286c35" stroke="#0f2b14" strokeWidth="0.8" />
+              {/* Central Heart of Palm */}
+              <circle cx="0" cy="0" r="3.8" fill="#164320" />
+            </g>
+          </g>
+
+          {/* Tropical Leaf Cluster (Foliage & Undergrowth) */}
+          <g id="tropical-leaf-cluster">
+            <path d="M 0 0 Q -18 -12 -28 0 Q -16 4 0 0" fill="#1b4d24" stroke="#0f2b14" strokeWidth="0.7" />
+            <path d="M 0 0 Q 18 -12 28 0 Q 16 4 0 0" fill="#1b4d24" stroke="#0f2b14" strokeWidth="0.7" />
+            <path d="M 0 0 Q -12 -18 -16 -28 Q -6 -16 0 0" fill="#20592b" stroke="#0f2b14" strokeWidth="0.7" />
+            <path d="M 0 0 Q 12 -18 16 -28 Q 6 -16 0 0" fill="#20592b" stroke="#0f2b14" strokeWidth="0.7" />
+            <path d="M 0 0 Q 0 -22 0 -32 Q 4 -18 0 0" fill="#286c35" stroke="#0f2b14" strokeWidth="0.7" />
+            {/* Internal leaf vein details */}
+            <path d="M 0 0 Q -14 -6 -26 0" fill="none" stroke="#286c35" strokeWidth="0.5" opacity="0.7" />
+            <path d="M 0 0 Q 14 -6 26 0" fill="none" stroke="#286c35" strokeWidth="0.5" opacity="0.7" />
+            <path d="M 0 0 Q 0 -18 0 -30" fill="none" stroke="#3da84f" strokeWidth="0.5" opacity="0.7" />
+          </g>
+
+          {/* Broad Island Monstera Leaf */}
+          <g id="broad-island-leaf">
+            <path d="M 0 0 C -12 -10, -22 -22, -18 -36 C -10 -38, 0 -32, 0 -42 C 0 -32, 10 -38, 18 -36 C 22 -22, 12 -10, 0 0 Z" fill="#164320" stroke="#0f2b14" strokeWidth="0.8" />
+            <line x1="0" y1="0" x2="0" y2="-40" stroke="#286c35" strokeWidth="0.8" />
+            <line x1="0" y1="-12" x2="-10" y2="-18" stroke="#286c35" strokeWidth="0.6" opacity="0.7" />
+            <line x1="0" y1="-12" x2="10" y2="-18" stroke="#286c35" strokeWidth="0.6" opacity="0.7" />
+            <line x1="0" y1="-22" x2="-12" y2="-28" stroke="#286c35" strokeWidth="0.6" opacity="0.7" />
+            <line x1="0" y1="-22" x2="12" y2="-28" stroke="#286c35" strokeWidth="0.6" opacity="0.7" />
+          </g>
+        </defs>
+
         {/* Base shadow/depth */}
         <path 
           d="M 300 60 C 450 40, 580 160, 550 310 C 520 460, 420 590, 300 560 C 150 530, 50 460, 30 310 C 10 160, 150 80, 300 60 Z" 
@@ -38,6 +91,30 @@ export default function IslandLanding({ x, y }: { x: number, y: number }) {
         <path d="M 200 250 Q 300 220 400 250 T 450 350" fill="none" stroke="var(--color-island-highlight)" strokeWidth="2" opacity="0.6" />
         <path d="M 250 350 Q 300 320 350 350" fill="none" stroke="var(--color-island-highlight)" strokeWidth="2" opacity="0.6" />
         
+        {/* --- STRATEGICALLY PLANTED TROPICAL PALM TREES & UNDERGROWTH (OPTIMIZED) --- */}
+
+        {/* 1. Northwest Forest Grove (Top-Left Island Perimeter) */}
+        <g id="nw-grove">
+          <use href="#island-palm-tree" x="120" y="95" transform="scale(1.15)" />
+          <use href="#tropical-leaf-cluster" x="125" y="165" transform="scale(1.2)" />
+        </g>
+
+        {/* 2. Northeast Forest Grove (Top-Right Island Perimeter) */}
+        <g id="ne-grove">
+          <use href="#island-palm-tree" x="-450" y="85" transform="scale(-1.1, 1)" />
+        </g>
+
+        {/* 3. Southwest Coastal Grove (Bottom-Left Island Shoreline) */}
+        <g id="sw-grove">
+          <use href="#island-palm-tree" x="110" y="325" transform="scale(1.1)" />
+        </g>
+
+        {/* 4. Southeast Coastal Grove (Bottom-Right Island Shoreline) */}
+        <g id="se-grove">
+          <use href="#island-palm-tree" x="-475" y="315" transform="scale(-1.15, 1)" />
+          <use href="#tropical-leaf-cluster" x="475" y="400" transform="scale(1.3) rotate(28)" />
+        </g>
+
         {/* Campfire (Realistic Torchlight) */}
         <g transform="translate(180, 380)">
           {/* Subtle Glow */}
@@ -70,18 +147,10 @@ export default function IslandLanding({ x, y }: { x: number, y: number }) {
       <div className="absolute top-20 left-40">
         <svg width="80" height="150" viewBox="0 0 80 150" className="drop-shadow-xl opacity-90">
           <line x1="10" y1="150" x2="10" y2="10" stroke="var(--color-island-dirt)" strokeWidth="4" strokeLinecap="round" />
-          <motion.path 
-            initial={{ d: "M 12 10 Q 40 0 70 20 Q 40 30 12 40 Z" }}
-            d="M 12 10 Q 40 0 70 20 Q 40 30 12 40 Z" 
+          <path 
+            d="M 12 10 Q 40 10 70 18 Q 40 28 12 40 Z" 
             fill="var(--color-ocean-dark)"
-            animate={{ 
-              d: [
-                "M 12 10 Q 40 0 70 20 Q 40 30 12 40 Z",
-                "M 12 10 Q 40 25 70 5 Q 40 15 12 40 Z",
-                "M 12 10 Q 40 0 70 20 Q 40 30 12 40 Z"
-              ] 
-            }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            className="anim-flag"
           />
         </svg>
       </div>

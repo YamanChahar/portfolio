@@ -61,14 +61,12 @@ function MapScene() {
         }}
       >
         <MapDecorations />
-        <Particles />
         <Path />
 
         {/* Parallax Foreground Layer */}
         <div 
           ref={foregroundRef} 
           className="absolute inset-0 pointer-events-none"
-          style={{ willChange: 'transform' }}
         >
           <Clouds />
           <Birds />
@@ -88,6 +86,9 @@ function MapScene() {
         <IslandExperience x={ISLAND_COORDINATES[4].x} y={ISLAND_COORDINATES[4].y} />
         <IslandContact x={ISLAND_COORDINATES[5].x} y={ISLAND_COORDINATES[5].y} />
       </div>
+
+      {/* Screen-Sized Ambient Particles (High-Performance 60 FPS Viewport Overlay) */}
+      <Particles />
 
       {/* Weather Overlay */}
       <div className="absolute inset-0 pointer-events-none z-[60]">

@@ -21,7 +21,7 @@ export default function IslandExperience({ x, y }: { x: number, y: number }) {
   return (
     <div
       className="absolute transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center w-[600px] h-[600px] pointer-events-auto"
-      style={{ left: x, top: y }}
+      style={{ left: x, top: y, contentVisibility: 'auto', containIntrinsicSize: '600px 600px' }}
     >
       <svg className="absolute inset-0 w-full h-full pointer-events-none drop-shadow-2xl opacity-90" viewBox="0 0 600 600">
         <path
@@ -84,82 +84,32 @@ export default function IslandExperience({ x, y }: { x: number, y: number }) {
           <path d="M 55 110 L 95 110" stroke="#4a3728" strokeWidth="8" strokeLinecap="round" transform="rotate(20 75 110)" />
           <path d="M 55 110 L 95 110" stroke="#3d2d21" strokeWidth="8" strokeLinecap="round" transform="rotate(-20 75 110)" />
           
-          {/* Outer Flames */}
-          <motion.path 
-            initial={{ d: "M 75 40 Q 95 80 90 105 Q 75 115 60 105 Q 55 80 75 40 Z" }}
-            d="M 75 40 Q 95 80 90 105 Q 75 115 60 105 Q 55 80 75 40 Z" 
-            fill="#ff5500"
-            animate={{ 
-              d: [
-                "M 75 40 Q 95 80 90 105 Q 75 115 60 105 Q 55 80 75 40 Z",
-                "M 75 30 Q 105 80 90 105 Q 75 115 60 105 Q 45 80 75 30 Z",
-                "M 75 40 Q 95 80 90 105 Q 75 115 60 105 Q 55 80 75 40 Z"
-              ] 
-            }}
-            transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
-          />
-          {/* Mid Flames */}
-          <motion.path 
-            initial={{ d: "M 75 60 Q 90 90 85 110 Q 75 115 65 110 Q 60 90 75 60 Z" }}
-            d="M 75 60 Q 90 90 85 110 Q 75 115 65 110 Q 60 90 75 60 Z" 
-            fill="#ffaa00"
-            animate={{ 
-              d: [
-                "M 75 60 Q 90 90 85 110 Q 75 115 65 110 Q 60 90 75 60 Z",
-                "M 75 55 Q 85 90 85 110 Q 75 115 65 110 Q 65 90 75 55 Z",
-                "M 75 60 Q 90 90 85 110 Q 75 115 65 110 Q 60 90 75 60 Z"
-              ] 
-            }}
-            transition={{ duration: 0.9, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
-          />
-          {/* Inner Flames */}
-          <motion.path 
-            initial={{ d: "M 75 80 Q 82 100 80 110 Q 75 112 70 110 Q 68 100 75 80 Z" }}
-            d="M 75 80 Q 82 100 80 110 Q 75 112 70 110 Q 68 100 75 80 Z" 
-            fill="#ffeeaa"
-            animate={{ 
-              d: [
-                "M 75 80 Q 82 100 80 110 Q 75 112 70 110 Q 68 100 75 80 Z",
-                "M 75 75 Q 80 100 80 110 Q 75 112 70 110 Q 70 100 75 75 Z",
-                "M 75 80 Q 82 100 80 110 Q 75 112 70 110 Q 68 100 75 80 Z"
-              ] 
-            }}
-            transition={{ duration: 0.6, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
-          />
-          
-          {/* Sparks */}
-          {[
-            { id: 0, cx: 72, targetCx: 68, targetCy: 35, duration: 1.2, delay: 0.1 },
-            { id: 1, cx: 78, targetCx: 84, targetCy: 25, duration: 1.5, delay: 0.4 },
-            { id: 2, cx: 74, targetCx: 71, targetCy: 45, duration: 1.1, delay: 0.7 },
-            { id: 3, cx: 76, targetCx: 82, targetCy: 30, duration: 1.6, delay: 0.2 },
-            { id: 4, cx: 75, targetCx: 73, targetCy: 20, duration: 1.4, delay: 0.9 },
-          ].map(spark => (
-            <motion.circle
-              key={`spark-${spark.id}`}
-              r="2"
-              fill="#ffcc00"
-              initial={{ opacity: 1, cx: spark.cx, cy: 100 }}
-              animate={{ 
-                opacity: [1, 0],
-                cx: spark.targetCx,
-                cy: spark.targetCy
-              }}
-              transition={{
-                duration: spark.duration,
-                repeat: Infinity,
-                delay: spark.delay
-              }}
+          {/* Realistic Bonfire Flame Layers (CSS Hardware Accelerated) */}
+          <g className="anim-flame">
+            <path 
+              d="M 75 35 Q 98 78 90 105 Q 75 115 60 105 Q 52 78 75 35 Z" 
+              fill="#ff5500"
             />
-          ))}
+            <path 
+              d="M 75 55 Q 88 88 85 110 Q 75 115 65 110 Q 62 88 75 55 Z" 
+              fill="#ffaa00"
+            />
+            <path 
+              d="M 75 75 Q 82 98 80 110 Q 75 112 70 110 Q 68 98 75 75 Z" 
+              fill="#ffeeaa"
+            />
+          </g>
+          
+          {/* Subtle Ambient Embers */}
+          <circle cx="72" cy="50" r="1.8" fill="#ffcc00" className="animate-ping" opacity="0.7" />
+          <circle cx="79" cy="38" r="1.5" fill="#ffaa00" className="animate-pulse" opacity="0.8" />
+          <circle cx="74" cy="65" r="1.6" fill="#ffeeaa" className="animate-pulse" opacity="0.9" />
         </svg>
       </motion.div>
 
       {/* Floating Ship */}
       <motion.div
-        className="absolute bottom-[-10px] cursor-pointer pointer-events-auto"
-        animate={{ y: [0, -5, 0], rotate: [-0.5, 0.5, -0.5] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-[-10px] cursor-pointer pointer-events-auto anim-map-bob"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(true)}

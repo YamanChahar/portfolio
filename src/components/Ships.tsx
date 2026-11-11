@@ -4,8 +4,6 @@ import gsap from 'gsap'
 const SHIPS = [
   { id: 1, type: 'pirate', scale: 0.7 },
   { id: 2, type: 'fishing', scale: 0.5 },
-  { id: 3, type: 'pirate', scale: 0.6 },
-  { id: 4, type: 'fishing', scale: 0.4 },
 ]
 
 export default function Ships() {
@@ -16,25 +14,6 @@ export default function Ships() {
     const elements = containerRef.current.children
 
     gsap.utils.toArray(elements).forEach((el: any) => {
-      // Subtle cinematic bobbing
-      gsap.to(el.querySelector('.ship-body'), {
-        y: '-=2',
-        rotation: '-=1',
-        duration: 3,
-        yoyo: true,
-        repeat: -1,
-        ease: 'sine.inOut'
-      })
-      
-      // Gentle wake
-      gsap.to(el.querySelector('.ship-wake'), {
-        scaleX: 1.3,
-        opacity: 0,
-        duration: 3,
-        repeat: -1,
-        ease: 'power1.out'
-      })
-
       // Very slow roaming
       const moveShip = () => {
         const currentX = gsap.getProperty(el, "x") as number || parseFloat(el.style.left) || 0
@@ -72,9 +51,9 @@ export default function Ships() {
             className="absolute origin-center"
             style={{ left: startX, top: startY, transform: `scale(${ship.scale})` }}
           >
-            <div className="relative ship-body">
+            <div className="relative ship-body anim-map-bob">
               {/* Wake */}
-              <div className="ship-wake absolute top-10 -left-4 w-16 h-16 rounded-full border-2 border-t-[#e8dcc4] border-transparent opacity-20 blur-[1px]" />
+              <div className="ship-wake absolute top-10 -left-4 w-16 h-16 rounded-full border-2 border-t-[#e8dcc4] border-transparent opacity-20 blur-[1px] animate-pulse" />
               
               {ship.type === 'pirate' ? (
                 <svg width="80" height="100" viewBox="0 0 80 100" className="drop-shadow-xl opacity-90">

@@ -6,9 +6,12 @@ export default function Weather() {
   const lightningRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    const fogEl = fogRef.current
+    const lightEl = lightningRef.current
+
     // Smooth, lightweight fog drift
-    if (fogRef.current) {
-      gsap.to(fogRef.current, {
+    if (fogEl) {
+      gsap.to(fogEl, {
         x: '-=400',
         duration: 80,
         repeat: -1,
@@ -21,18 +24,18 @@ export default function Weather() {
     }
 
     // Occasional Lightning Flash
-    if (lightningRef.current) {
+    if (lightEl) {
       const flash = () => {
         const shouldFlash = Math.random() > 0.7
         if (shouldFlash) {
-          gsap.to(lightningRef.current, {
+          gsap.to(lightEl, {
             opacity: 0.12,
             duration: 0.08,
             yoyo: true,
             repeat: 3,
             ease: 'sine.inOut',
             onComplete: () => {
-              gsap.set(lightningRef.current, { opacity: 0 })
+              gsap.set(lightEl, { opacity: 0 })
             }
           })
         }
@@ -44,8 +47,8 @@ export default function Weather() {
     }
 
     return () => {
-      gsap.killTweensOf(fogRef.current)
-      gsap.killTweensOf(lightningRef.current)
+      if (fogEl) gsap.killTweensOf(fogEl)
+      if (lightEl) gsap.killTweensOf(lightEl)
     }
   }, [])
 

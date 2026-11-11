@@ -55,11 +55,12 @@ const generateOceanDecorations = (count: number, type: 'barrel' | 'fish' | 'boat
   return decorations
 }
 
-const COASTAL_ROCKS = generateDecorations(4, 250, 'rock')
-const BARRELS = generateOceanDecorations(10, 'barrel')
-const FISH_SHADOWS = generateOceanDecorations(16, 'fish')
-const FISHING_BOATS = generateOceanDecorations(5, 'boat')
-const BALLOONS = generateSkyDecorations(8)
+const COASTAL_ROCKS = generateDecorations(1, 250, 'rock')
+const COASTAL_TREES = generateDecorations(1, 260, 'tree')
+const BARRELS = generateOceanDecorations(4, 'barrel')
+const FISH_SHADOWS = generateOceanDecorations(5, 'fish')
+const FISHING_BOATS = generateOceanDecorations(2, 'boat')
+const BALLOONS = generateSkyDecorations(2)
 
 export default function MapDecorations() {
   return (
@@ -89,7 +90,7 @@ export default function MapDecorations() {
       {BARRELS.map(barrel => (
         <svg 
           key={barrel.id} 
-          className="absolute anim-map-bob drop-shadow-md" 
+          className="absolute anim-map-bob" 
           style={{ 
             left: barrel.x, 
             top: barrel.y, 
@@ -110,7 +111,7 @@ export default function MapDecorations() {
       {FISHING_BOATS.map(boat => (
         <svg 
           key={boat.id} 
-          className="absolute anim-map-sway drop-shadow-xl" 
+          className="absolute anim-map-sway" 
           style={{ 
             left: boat.x, 
             top: boat.y, 
@@ -131,7 +132,7 @@ export default function MapDecorations() {
       {COASTAL_ROCKS.map(rock => (
         <svg 
           key={rock.id} 
-          className="absolute drop-shadow-lg" 
+          className="absolute" 
           style={{ left: rock.x, top: rock.y, transform: `scale(${rock.scale})` }} 
           width="40" 
           height="30" 
@@ -143,12 +144,46 @@ export default function MapDecorations() {
           <path d="M -5 28 Q 20 35 45 28" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="2" strokeLinecap="round" />
         </svg>
       ))}
+
+      {/* Coastal Palm Trees around Island Shores */}
+      {COASTAL_TREES.map(tree => (
+        <svg
+          key={tree.id}
+          className="absolute"
+          style={{ left: tree.x, top: tree.y, transform: `scale(${tree.scale * 1.2})` }}
+          width="60"
+          height="80"
+          viewBox="0 0 60 80"
+        >
+          {/* Brown Stem / Trunk with bark rings */}
+          <path d="M 30 20 Q 32 50 36 78" fill="none" stroke="#92400e" strokeWidth="5.5" strokeLinecap="round" />
+          <path d="M 30 20 Q 32 50 36 78" fill="none" stroke="#78350f" strokeWidth="2.5" strokeLinecap="round" />
+          <line x1="29" y1="36" x2="34" y2="37" stroke="#451a03" strokeWidth="1.5" />
+          <line x1="30" y1="52" x2="35" y2="53" stroke="#451a03" strokeWidth="1.5" />
+          <line x1="32" y1="68" x2="37" y2="69" stroke="#451a03" strokeWidth="1.5" />
+          <circle cx="36" cy="78" r="3.5" fill="#5e2b07" />
+
+          {/* Symmetrically Uniform Dark Green Island Fronds Crown */}
+          <g transform="translate(30, 20)">
+            <path d="M 0 0 Q -18 -14 -28 -4 Q -18 -2 0 0" fill="#1b4d24" stroke="#0f2b14" strokeWidth="0.8" />
+            <path d="M 0 0 Q 18 -14 28 -4 Q 18 -2 0 0" fill="#1b4d24" stroke="#0f2b14" strokeWidth="0.8" />
+            <path d="M 0 0 Q -22 -4 -30 10 Q -18 6 0 0" fill="#164320" stroke="#0f2b14" strokeWidth="0.8" />
+            <path d="M 0 0 Q 22 -4 30 10 Q 18 6 0 0" fill="#164320" stroke="#0f2b14" strokeWidth="0.8" />
+            <path d="M 0 0 Q -14 10 -22 20 Q -10 12 0 0" fill="#1b4d24" stroke="#0f2b14" strokeWidth="0.8" />
+            <path d="M 0 0 Q 14 10 22 20 Q 10 12 0 0" fill="#1b4d24" stroke="#0f2b14" strokeWidth="0.8" />
+            <path d="M 0 0 Q -10 -18 -16 -26 Q -8 -14 0 0" fill="#20592b" stroke="#0f2b14" strokeWidth="0.8" />
+            <path d="M 0 0 Q 10 -18 16 -26 Q 8 -14 0 0" fill="#20592b" stroke="#0f2b14" strokeWidth="0.8" />
+            <path d="M 0 0 Q 0 -22 0 -28 Q 3 -14 0 0" fill="#286c35" stroke="#0f2b14" strokeWidth="0.8" />
+            <circle cx="0" cy="0" r="3" fill="#164320" />
+          </g>
+        </svg>
+      ))}
       
       {/* Vintage Hot Air Balloons */}
       {BALLOONS.map(balloon => (
         <svg 
           key={balloon.id} 
-          className="absolute anim-map-bob drop-shadow-2xl z-20" 
+          className="absolute anim-map-bob z-20" 
           style={{ 
             left: balloon.x, 
             top: balloon.y, 

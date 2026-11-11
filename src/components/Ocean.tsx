@@ -1,12 +1,12 @@
 import { useMemo } from 'react'
 
 export default function Ocean() {
-  // Stable wave positions generated once
+  // Stable viewport wave positions generated once (optimized from 45 down to 15 viewport-distributed waves)
   const waveData = useMemo(() => {
-    return Array.from({ length: 45 }).map((_, i) => ({
+    return Array.from({ length: 15 }).map((_, i) => ({
       id: i,
-      x: (i % 9) * 440 + ((i * 73) % 200),
-      y: Math.floor(i / 9) * 800 + ((i * 127) % 350),
+      left: `${(i % 5) * 20 + ((i * 13) % 10) + 5}%`,
+      top: `${Math.floor(i / 5) * 32 + ((i * 17) % 12) + 6}%`,
       scale: 0.6 + ((i * 17) % 10) * 0.08,
       delay: (i * 0.35) % 4,
       duration: 5 + (i % 4) * 1.2
@@ -25,8 +25,8 @@ export default function Ocean() {
             key={wave.id}
             className="absolute anim-wave"
             style={{ 
-              left: wave.x, 
-              top: wave.y, 
+              left: wave.left, 
+              top: wave.top, 
               transform: `scale(${wave.scale})`,
               animationDelay: `${wave.delay}s`,
               animationDuration: `${wave.duration}s`

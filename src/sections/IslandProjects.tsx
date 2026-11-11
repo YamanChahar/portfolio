@@ -208,7 +208,7 @@ export default function IslandProjects({ x, y }: { x: number, y: number }) {
   return (
     <div
       className="absolute transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center w-[800px] h-[800px] pointer-events-auto"
-      style={{ left: x, top: y }}
+      style={{ left: x, top: y, contentVisibility: 'auto', containIntrinsicSize: '800px 800px' }}
     >
       {/* Island base SVG - Vintage Ruins Style */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none drop-shadow-2xl opacity-90" viewBox="0 0 800 800">
@@ -224,25 +224,17 @@ export default function IslandProjects({ x, y }: { x: number, y: number }) {
         <path d="M 300 200 Q 400 250 500 200" fill="none" stroke="var(--color-stone-dark)" strokeWidth="4" />
       </svg>
 
-      {/* Jungle Fireflies */}
+      {/* Jungle Fireflies (CSS Hardware Accelerated) */}
       <div className="absolute inset-0 pointer-events-none">
         {fireflies.map((ff, i) => (
-          <motion.div
+          <div
             key={`firefly-${i}`}
-            className="absolute w-2 h-2 rounded-full bg-[#c2ff66] blur-[2px]"
+            className="absolute w-2 h-2 rounded-full bg-[#c2ff66] blur-[1px] animate-pulse"
             style={{
               left: ff.left,
-              top: ff.top
-            }}
-            animate={{
-              y: [-12, 12, -12],
-              opacity: [0.2, 0.85, 0.2],
-              scale: [0.8, 1.3, 0.8]
-            }}
-            transition={{
-              duration: ff.duration,
-              repeat: Infinity,
-              ease: "easeInOut"
+              top: ff.top,
+              animationDuration: `${ff.duration}s`,
+              animationDelay: `${i * 0.4}s`
             }}
           />
         ))}

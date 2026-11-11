@@ -107,50 +107,36 @@ function Companion() {
             </svg>
           </motion.button>
         ) : (
-          <motion.div
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="w-[12vh] h-[15vh] min-w-[100px] min-h-[120px] max-w-[150px] max-h-[180px] relative cursor-pointer"
+          <div
+            className="w-[12vh] h-[15vh] min-w-[100px] min-h-[120px] max-w-[150px] max-h-[180px] relative cursor-pointer anim-map-bob"
           >
             <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-xl overflow-visible">
               {/* Idle floating shadow */}
-              <motion.ellipse 
+              <ellipse 
                 cx="50" cy="95" rx="20" ry="5" fill="rgba(0,0,0,0.2)"
-                style={{ transformOrigin: "50px 95px" }}
-                animate={{ scaleX: [1, 0.75, 1], opacity: [0.2, 0.1, 0.2] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="animate-pulse"
               />
 
               {/* Character Body (Cloak) */}
-              <motion.path 
-                initial={{ d: "M 20 90 C 20 40 80 40 80 90 C 80 95 20 95 20 90 Z" }}
+              <path 
                 d="M 20 90 C 20 40 80 40 80 90 C 80 95 20 95 20 90 Z" 
                 fill="var(--color-ocean-dark)"
-                animate={{ d: [
-                  "M 20 90 C 20 40 80 40 80 90 C 80 95 20 95 20 90 Z",
-                  "M 22 90 C 20 42 80 42 78 90 C 80 95 20 95 22 90 Z",
-                  "M 20 90 C 20 40 80 40 80 90 C 80 95 20 95 20 90 Z"
-                ] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
               />
               
               {/* Head / Hood */}
               <path d="M 15 45 Q 50 -10 85 45 Q 50 10 15 45 Z" fill="var(--color-ocean-dark)" />
               <path d="M 25 40 Q 50 10 75 40 Z" fill="var(--color-stone-dark)" opacity="0.5" />
               
-              {/* Blinking Eyes (Glowing yellow/gold) */}
-              <motion.g
-                animate={{ opacity: [1, 1, 0, 1, 1] }}
-                transition={{ duration: 4, repeat: Infinity, times: [0, 0.9, 0.95, 0.98, 1] }}
-              >
+              {/* Glowing Eyes */}
+              <g className="animate-pulse">
                 <circle cx="40" cy="45" r="4" fill="var(--color-treasure-gold)" className="drop-shadow-[0_0_5px_rgba(197,160,89,1)]" />
                 <circle cx="60" cy="45" r="4" fill="var(--color-treasure-gold)" className="drop-shadow-[0_0_5px_rgba(197,160,89,1)]" />
-              </motion.g>
+              </g>
 
               {/* Scarf / Detail */}
               <path d="M 35 60 Q 50 70 65 60 L 55 80 Z" fill="var(--color-bronze)" />
             </svg>
-          </motion.div>
+          </div>
         )}
       </div>
     </div>

@@ -21,7 +21,7 @@ export default function IslandAbout({ x, y }: { x: number, y: number }) {
   return (
     <div 
       className="absolute transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center w-[520px] h-[520px] pointer-events-auto"
-      style={{ left: x, top: y }}
+      style={{ left: x, top: y, contentVisibility: 'auto', containIntrinsicSize: '520px 520px' }}
     >
       {/* Island base SVG - Ancient Cartographer's Sanctuary */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none drop-shadow-2xl opacity-90" viewBox="0 0 520 520">
@@ -119,26 +119,17 @@ export default function IslandAbout({ x, y }: { x: number, y: number }) {
         <circle cx="372" cy="165" r="2.5" fill="var(--color-island-highlight)" />
       </svg>
 
-      {/* Floating Stardust / Mystical Runes around Altar */}
+      {/* Floating Stardust / Mystical Runes around Altar (CSS Hardware Accelerated) */}
       <div className="absolute inset-0 pointer-events-none">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <motion.div
+        {Array.from({ length: 4 }).map((_, i) => (
+          <div
             key={`mystic-particle-${i}`}
-            className="absolute w-1.5 h-1.5 rounded-full bg-treasure-gold blur-[1px]"
+            className="absolute w-1.5 h-1.5 rounded-full bg-treasure-gold blur-[0.5px] animate-pulse"
             style={{
-              left: 210 + (i * 20),
-              top: 200 + ((i % 3) * 25)
-            }}
-            animate={{
-              y: [-15, -45, -15],
-              x: [(i % 2 === 0 ? -10 : 10), (i % 2 === 0 ? 10 : -10), (i % 2 === 0 ? -10 : 10)],
-              opacity: [0.2, 0.9, 0.2],
-              scale: [0.7, 1.4, 0.7]
-            }}
-            transition={{
-              duration: 3 + i * 0.7,
-              repeat: Infinity,
-              ease: "easeInOut"
+              left: 220 + (i * 26),
+              top: 210 + ((i % 2) * 20),
+              animationDelay: `${i * 0.5}s`,
+              animationDuration: `${2 + i * 0.5}s`
             }}
           />
         ))}
@@ -152,17 +143,8 @@ export default function IslandAbout({ x, y }: { x: number, y: number }) {
         whileTap={{ scale: 0.96 }}
       >
         {/* Floating Grimoire Book */}
-        <motion.div
-          animate={{
-            y: [-5, 5, -5],
-            rotate: [-1, 1, -1]
-          }}
-          transition={{
-            duration: 4,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="relative w-28 h-32 rounded-r-md rounded-l-xs shadow-[0_15px_30px_rgba(0,0,0,0.6)] flex items-center justify-center border-2 border-bronze/80 bg-gradient-to-br from-[#402218] via-[#2d1810] to-[#1c0f0a] group"
+        <div
+          className="relative w-28 h-32 rounded-r-md rounded-l-xs shadow-[0_15px_30px_rgba(0,0,0,0.6)] flex items-center justify-center border-2 border-bronze/80 bg-gradient-to-br from-[#402218] via-[#2d1810] to-[#1c0f0a] group anim-map-bob"
           style={{
             perspective: 600,
             transformStyle: "preserve-3d"
@@ -190,7 +172,7 @@ export default function IslandAbout({ x, y }: { x: number, y: number }) {
 
           {/* Glowing Aura on Hover */}
           <div className="absolute -inset-1 rounded-r-md rounded-l-xs bg-treasure-gold/20 filter blur-sm opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-        </motion.div>
+        </div>
 
         {/* Interactive Floating Badge */}
         <motion.div 
@@ -226,18 +208,16 @@ export default function IslandAbout({ x, y }: { x: number, y: number }) {
             {/* Ornate Astrolabe Medallion */}
             <div className="relative w-48 h-48 mx-auto rounded-full border-2 border-bronze/40 flex items-center justify-center bg-gradient-to-b from-parchment-dark/30 to-parchment/10 shadow-[inset_0_0_30px_rgba(139,115,85,0.25)] p-2">
               
-              {/* Outer Rotating Astrolabe Ring */}
-              <motion.div 
-                className="absolute inset-2 rounded-full border border-dashed border-ocean-dark/40 pointer-events-none"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+              {/* Outer Rotating Astrolabe Ring (CSS Hardware Accelerated) */}
+              <div 
+                className="absolute inset-2 rounded-full border border-dashed border-ocean-dark/40 pointer-events-none animate-spin"
+                style={{ animationDuration: '60s' }}
               />
 
               {/* Second Counter-rotating Ring */}
-              <motion.div 
-                className="absolute inset-4 rounded-full border border-ocean-dark/20 pointer-events-none"
-                animate={{ rotate: -360 }}
-                transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
+              <div 
+                className="absolute inset-4 rounded-full border border-ocean-dark/20 pointer-events-none animate-spin"
+                style={{ animationDuration: '45s', animationDirection: 'reverse' }}
               />
 
               {/* Center Medallion Artwork */}

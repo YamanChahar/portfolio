@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ISLAND_COORDINATES, getDockPos } from '../constants/islands'
-import { motion } from 'framer-motion'
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -146,29 +145,21 @@ export default function TreasureFleet() {
         >
           <div className="relative ship-hull origin-center scale-75">
             {/* Animated wake (only when moving) */}
-            <motion.div 
-              className="ship-wake absolute top-12 -left-6 w-20 h-20 rounded-full border-2 border-t-[#e8dcc4] border-transparent opacity-30 blur-[1px]"
-              animate={{ scaleX: [1, 1.5], opacity: [0.3, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut" }}
+            <div 
+              className="ship-wake absolute top-12 -left-6 w-20 h-20 rounded-full border-2 border-t-[#e8dcc4] border-transparent opacity-30 blur-[1px] animate-pulse"
             />
             
             {/* Premium SVG Pirate Ship */}
             <svg width="80" height="100" viewBox="0 0 80 100" className="drop-shadow-2xl opacity-90 origin-center -rotate-90">
               <path d="M 40 10 L 40 80" stroke="var(--color-island-dirt)" strokeWidth="4" />
               <path d="M 20 20 Q 40 40 60 20 L 50 10 L 30 10 Z" fill="var(--color-stone-dark)" />
-              <motion.path 
-                initial={{ d: "M 20 20 Q 40 50 60 20 Q 40 10 20 20 Z" }}
+              <path 
                 d="M 20 20 Q 40 50 60 20 Q 40 10 20 20 Z" 
                 fill="var(--color-parchment)" opacity="0.9" 
-                animate={{ d: ["M 20 20 Q 40 50 60 20 Q 40 10 20 20 Z", "M 15 20 Q 40 55 65 20 Q 40 5 15 20 Z", "M 20 20 Q 40 50 60 20 Q 40 10 20 20 Z"] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
               />
-              <motion.path 
-                initial={{ d: "M 20 40 Q 40 70 60 40 Q 40 30 20 40 Z" }}
+              <path 
                 d="M 20 40 Q 40 70 60 40 Q 40 30 20 40 Z" 
                 fill="var(--color-parchment-dark)" opacity="0.9" 
-                animate={{ d: ["M 20 40 Q 40 70 60 40 Q 40 30 20 40 Z", "M 15 40 Q 40 75 65 40 Q 40 25 15 40 Z", "M 20 40 Q 40 70 60 40 Q 40 30 20 40 Z"] }}
-                transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
               />
               <path d="M 30 10 L 50 10 L 60 85 Q 40 100 20 85 Z" fill="var(--color-island-dirt)" />
               

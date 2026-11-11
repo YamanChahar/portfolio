@@ -1,6 +1,9 @@
 import { useEffect } from 'react'
 import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ISLAND_COORDINATES } from '../constants/islands'
+
+gsap.registerPlugin(ScrollTrigger)
 
 interface CameraControllerProps {
   mapRef: React.RefObject<HTMLDivElement | null>
@@ -37,7 +40,7 @@ export default function CameraController({ mapRef }: CameraControllerProps) {
           trigger: document.body,
           start: 'top top',
           end: 'bottom bottom',
-          scrub: 0.5,
+          scrub: 0.25,
         },
         onUpdate: updateCamera
       })

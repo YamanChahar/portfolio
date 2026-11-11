@@ -124,7 +124,7 @@ export default function IslandSkills({ x, y }: { x: number; y: number }) {
   return (
     <div
       className="absolute transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center w-[580px] h-[580px] pointer-events-auto"
-      style={{ left: x, top: y }}
+      style={{ left: x, top: y, contentVisibility: 'auto', containIntrinsicSize: '580px 580px' }}
     >
       {/* Intricate Island Base SVG (The Cartographer's Smelting Forge) */}
       <svg
@@ -227,15 +227,11 @@ export default function IslandSkills({ x, y }: { x: number; y: number }) {
           return (
             <motion.div
               key={skill.name}
-              className="absolute flex flex-col items-center justify-center cursor-pointer pointer-events-auto"
-              style={{ left: `calc(50% + ${left - 28}px)`, top: `calc(50% + ${top - 28}px)` }}
-              animate={{
-                y: [-5, 5, -5],
-              }}
-              transition={{
-                duration: 3 + (i % 3) * 0.5,
-                repeat: Infinity,
-                ease: 'easeInOut',
+              className="absolute flex flex-col items-center justify-center cursor-pointer pointer-events-auto anim-map-bob"
+              style={{ 
+                left: `calc(50% + ${left - 28}px)`, 
+                top: `calc(50% + ${top - 28}px)`,
+                animationDelay: `${(i * 0.4) % 3}s`
               }}
               whileHover={{ scale: 1.15, zIndex: 40 }}
               onHoverStart={() => setHoveredSkill(skill.name)}
@@ -257,19 +253,17 @@ export default function IslandSkills({ x, y }: { x: number; y: number }) {
         })}
       </div>
 
-      {/* Striking Forge Hammer Animation */}
-      <motion.div
-        className="absolute w-20 h-20 pointer-events-none z-10"
-        style={{ left: 295, top: 225, transformOrigin: 'bottom right' }}
-        animate={{ rotate: [0, -42, 0] }}
-        transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
+      {/* Striking Forge Hammer Animation (CSS Hardware Accelerated) */}
+      <div
+        className="absolute w-20 h-20 pointer-events-none z-10 anim-hammer"
+        style={{ left: 295, top: 225 }}
       >
         <svg viewBox="0 0 100 100">
           <rect x="70" y="30" width="8" height="70" fill="var(--color-island-dirt)" />
           <rect x="30" y="15" width="50" height="25" fill="var(--color-stone)" />
           <rect x="25" y="18" width="5" height="19" fill="var(--color-stone-dark)" />
         </svg>
-      </motion.div>
+      </div>
 
       {/* Comprehensive Technical Skills ScrollModal */}
       <ScrollModal

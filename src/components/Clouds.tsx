@@ -2,10 +2,10 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { MAP_SIZE } from '../constants/islands'
 
-const CLOUD_DATA = Array.from({ length: 16 }).map((_, i) => ({
+const CLOUD_DATA = Array.from({ length: 7 }).map((_, i) => ({
   id: i,
-  x: (i * 260) % MAP_SIZE.width,
-  y: 150 + ((i * 420) % (MAP_SIZE.height - 400)),
+  x: (i * 580 + 100) % MAP_SIZE.width,
+  y: 180 + ((i * 540) % (MAP_SIZE.height - 400)),
   scale: 1.2 + ((i * 19) % 10) * 0.15,
   opacity: 0.15 + ((i * 11) % 10) * 0.02,
   speed: 12 + ((i * 7) % 10) * 1.5,
